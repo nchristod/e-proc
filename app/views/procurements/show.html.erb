@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @procurement.name %>
+</p>
+
+<p>
+  <strong>Proc start date:</strong>
+  <%= @procurement.proc_start_date %>
+</p>
+
+<p>
+  <strong>Proc end date:</strong>
+  <%= @procurement.proc_end_date %>
+</p>
+
+<p>
+  <strong>Proc terms:</strong>
+  <%= @procurement.proc_terms %>
+</p>
+
+<p>
+  <strong>Proc delivery date:</strong>
+  <%= @procurement.proc_delivery_date %>
+</p>
+
+<%= link_to 'Edit', edit_procurement_path(@procurement) %> |
+<%= link_to 'Back', procurements_path %>

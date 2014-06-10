@@ -1,0 +1,15 @@
+<%= simple_form_for(@procurement) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :proc_start_date %>
+    <%= f.input :proc_end_date %>
+    <%= f.input :proc_terms %>
+    <%= f.input :proc_delivery_date %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

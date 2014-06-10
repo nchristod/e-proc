@@ -1,0 +1,33 @@
+<h1>Listing procurements</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Proc start date</th>
+      <th>Proc end date</th>
+      <th>Proc terms</th>
+      <th>Proc delivery date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @procurements.each do |procurement| %>
+      <tr>
+        <td><%= procurement.name %></td>
+        <td><%= procurement.proc_start_date %></td>
+        <td><%= procurement.proc_end_date %></td>
+        <td><%= procurement.proc_terms %></td>
+        <td><%= procurement.proc_delivery_date %></td>
+        <td><%= link_to 'Show', procurement %></td>
+        <td><%= link_to 'Edit', edit_procurement_path(procurement) %></td>
+        <td><%= link_to 'Destroy', procurement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Procurement', new_procurement_path %>

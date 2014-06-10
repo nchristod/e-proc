@@ -9,9 +9,6 @@ class User < ActiveRecord::Base
   has_many :procurements
   has_many :offers
 
-  # Setup accessible attributes for the model
-  attr_accessible :user_id :name, :email, :sign_in_count, :created_at, :updated_at, :role, :last_sign_in_at, :current_sign_in_at
-
   def set_default_role
     self.role ||= :user
   end

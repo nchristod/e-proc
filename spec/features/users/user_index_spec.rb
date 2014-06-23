@@ -2,7 +2,7 @@ include Warden::Test::Helpers
 Warden.test_mode!
 
 # Feature: User index page
-#   As a user
+#   As a user with an admin role
 #   I want to see a list of users
 #   So I can see who has registered
 feature 'User index page', :devise do
@@ -11,15 +11,19 @@ feature 'User index page', :devise do
     Warden.test_reset!
   end
 
+  before(:each) do
+    @user = User.create!(name: 'test_john', email: "test_john@example.com", password: "123password", role: 2)
+  end
+
   # Scenario: User listed on index page
-  #   Given I am signed in
+  #   Given I am signed in as an admin
   #   When I visit the user index page
   #   Then I see my own email address
   scenario 'user sees own email address' do
-    user = FactoryGirl.create(:user)
-    login_as(user, scope: :user)
+    
+    login_as(@user, scope: :user)
     visit users_path
-    expect(page).to have_content user.email
+    expect(page).to have_content @user.email
   end
 
 end

@@ -20,9 +20,9 @@
         <td><%= procurement.proc_end_date %></td>
         <td><%= procurement.proc_terms %></td>
         <td><%= procurement.proc_delivery_date %></td>
-        <td><%= link_to 'Show', procurement %></td>
-        <td><%= link_to 'Edit', edit_procurement_path(procurement) %></td>
-        <td><%= link_to 'Destroy', procurement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', user_procurement_path(@user, procurement) %></td>
+        <td><%= link_to 'Edit', edit_user_procurement_path(@user, procurement) %></td>
+        <td><%= link_to 'Destroy', [@user, procurement], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Procurement', new_procurement_path %>
+<%= link_to 'New Procurement', new_user_procurement_path(@user) %>

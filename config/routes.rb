@@ -5,16 +5,17 @@ Rails.application.routes.draw do
     resources :products
   end
 
-  # resources :products
+  get 'products' => 'products#index', as: :products
 
-  # resources :procurements
-  get 'procurements' => 'visitors#index', as: :procurements
-  get 'procurements/:id' => 'visitors#show', as: :procurement
+  resources :procurements
+  # get 'procurements' => 'procurements#index', as: :procurements
+  get 'guest/procurements' => 'visitors#index', as: :visitor_procurements
+  get '/guest/procurements/:id' => 'visitors#show', as: :visitor_procurement
 
   root :to => "visitors#home"
   devise_for :users
   resources :users do
-    resources :procurements
+    # resources :procurements
     resources :offers
   end
 end

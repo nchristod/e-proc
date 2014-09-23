@@ -20,7 +20,7 @@
         <td><%= procurement.proc_end_date %></td>
         <td><%= procurement.proc_terms %></td>
         <td><%= procurement.proc_delivery_date %></td>
-        <td><%= link_to 'Show', procurement %></td>
+        <td><%= link_to 'Show', visitor_procurement_path(procurement) %></td>
       </tr>
     <% end %>
   </tbody>

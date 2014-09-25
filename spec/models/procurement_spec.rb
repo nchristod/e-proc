@@ -5,7 +5,7 @@ RSpec.describe Procurement, :type => :model do
     @proc = FactoryGirl.create(:procurement)
   end
 
-  it { should have_many :products }
+  it { should have_many :procurement_products }
   it { should have_many :offers }
   it { should belong_to :user }
 

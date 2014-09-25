@@ -1,7 +1,8 @@
 class Procurement < ActiveRecord::Base
 
-  has_many :products
   has_many :offers
+  has_many :procurement_products
+  has_many :products, through: :procurement_products
 
   belongs_to :user
 

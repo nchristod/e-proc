@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   has_many :procurements
   has_many :offers
 
-  validates_presence_of :email, :password
+  validates_presence_of :email
+  validates_presence_of :password, if: :new_record?
 
   def set_default_role
     self.role ||= :user

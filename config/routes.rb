@@ -2,10 +2,13 @@ Rails.application.routes.draw do
   # resources :offers
 
   resources :categories do 
-    resources :products
+    resources :products, except: [:index, :new, :create, :show]
   end
 
   get 'products' => 'products#index', as: :products
+  get 'products/:id' => 'products#show', as: :product
+  get 'product/new' => 'products#new', as: :new_product
+  post 'products' => 'products#create'
 
   resources :procurements
   # get 'procurements' => 'procurements#index', as: :procurements

@@ -87,12 +87,14 @@ class ProcurementsController < ApplicationController
   # DELETE /procurements/1
   # DELETE /procurements/1.json
   def destroy
-    @user = User.find(params[:user_id])
-    authorize @procurement
+    # @user = User.find(params[:user_id])
+    @user = current_user
+    
     if @user.admin?
+      authorize @procurement
       @procurement.destroy
       respond_to do |format|
-        format.html { redirect_to user_procurements_url, notice: 'Procurement was successfully destroyed.' }
+        format.html { redirect_to procurements_url, notice: 'Procurement was successfully destroyed.' }
         format.json { head :no_content }
       end
     else

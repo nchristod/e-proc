@@ -1,0 +1,18 @@
+
+
+<tr id='row0' data-id="0" class="nested-fields" >
+  <td data-name="product">
+    <%= f.input_field :product_id, collection: @products, value_method: :id, label_method: :name, include_blank: true, class: 'form-control', label: false %>
+  </td>
+  <td data-name="quantity">
+    <%= f.input_field :quantity, class: 'form-control', size: 4, label: false %>
+      
+  </td>
+  <td data-name="reqs">
+    <%= f.input_field :requirements, class: 'form-control', label: false %>
+  </td>
+  <td data-name="del">
+    <%= link_to_remove_association "remove task", f, class: 'btn btn-default btn-sm' %>
+<!--     <button nam"del0" class='btn btn-danger row-remove'><span class='glyphicon glyphicon-remove'></span></button> -->
+  </td>
+</tr>

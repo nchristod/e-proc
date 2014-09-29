@@ -52,7 +52,10 @@ ActiveRecord::Schema.define(version: 20140925213211) do
     t.datetime "proc_delivery_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
+
+  add_index "procurements", ["user_id"], name: "index_procurements_on_user_id"
 
   create_table "products", force: true do |t|
     t.string   "name"

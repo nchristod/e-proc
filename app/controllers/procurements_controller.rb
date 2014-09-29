@@ -18,13 +18,16 @@ class ProcurementsController < ApplicationController
     # @user = User.find(params[:user_id])
     @user = current_user
     authorize @procurement
+    @procurement_products = @procurement.procurement_products
   end
 
   # GET /procurements/new
   def new
+    @products = Product.all
     @user = current_user
     if @user.admin?
       @procurement = Procurement.new
+      @procurement.procurement_products.build
     else
       redirect_to root_path
       flash[:alert] = "You must be an admin to do that."
@@ -33,8 +36,9 @@ class ProcurementsController < ApplicationController
 
   # GET /procurements/1/edit
   def edit
+    @user = current_user
     authorize @procurement
-    @user = User.find(params[:user_id])
+    # @user = User.find(params[:user_id])
 
     if !@user.admin?
       redirect_to root_path
@@ -45,11 +49,9 @@ class ProcurementsController < ApplicationController
   # POST /procurements
   # POST /procurements.json
   def create
-    @user = current_user
-    
     #get the current_user and build the procurement
-    # @procurement = @user.procurements.build(procurement_params)
-    @procurement = Procurement.new(procurement_params)
+    @user = current_user
+    @procurement = @user.procurements.build(procurement_params)
     authorize @procurement
 
     respond_to do |format|
@@ -66,8 +68,10 @@ class ProcurementsController < ApplicationController
   # PATCH/PUT /procurements/1
   # PATCH/PUT /procurements/1.json
   def update
+    @user = current_user
     authorize @procurement
-    @user = User.find(params[:user_id])
+    # @user = User.find(params[:user_id])
+
     if @user.admin?
       respond_to do |format|
         if @procurement.update(procurement_params)
@@ -111,6 +115,6 @@ class ProcurementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def procurement_params
-      params.require(:procurement).permit(:id, :name, :proc_start_date, :proc_end_date, :proc_terms, :proc_delivery_date)
+      params.require(:procurement).permit(:id, :name, :proc_start_date, :proc_end_date, :proc_terms, :proc_delivery_date, procurement_products_attributes: [:product_id, :quantity, :requirements, :_destroy])
     end
 end

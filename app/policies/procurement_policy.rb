@@ -5,27 +5,27 @@ class ProcurementPolicy < ApplicationPolicy
   end
 
   def index?
-    @user
+    true
   end
 
   def create?
-    @user && @user.admin?
+    user && user.admin?
   end
 
   def edit?
-    @user && @user.admin?
+    update?
   end
 
   def update?
-    @user && @user.admin?
+    user && user.admin?
   end
 
   def new?
-    @user && @user.admin?
+    create?
   end
 
   def destroy?
-    @user && @user.admin?
+    user && user.admin?
   end
 
 end

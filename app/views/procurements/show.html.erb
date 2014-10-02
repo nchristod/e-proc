@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Category:</strong>
+  <%= @procurement.category.titleize %>
+</p>
+
+<p>
   <strong>Name:</strong>
   <%= @procurement.name %>
 </p>
@@ -49,6 +54,7 @@
             <td><%= product.product.name %></td>
             <td><%= product.quantity %></td>
             <td><%= product.requirements %></td>
+            <td><%= link_to "Offer", new_offer_path(current_user, product_id: product.product.id, procurement_id: @procurement.id), class: 'btn btn-default' if @procurement.underbidding? && current_user.supplier? %></td>
           </tr>
         <% end %>
       </tbody>

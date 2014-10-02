@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates_presence_of :password, if: :new_record?
 
   def set_default_role
-    self.role ||= :user
+    self.role ||= :supplier
   end
 
 end

@@ -15,8 +15,8 @@ describe User do
     expect(@user.email).to match 'user@example.com'
   end
 
-  it 'sets default role to simple user' do
-    expect(@user.role).to eq 'user'
+  it 'sets default role to supplier' do
+    expect(@user.role).to eq 'supplier'
   end
 
 end

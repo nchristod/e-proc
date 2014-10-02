@@ -12,6 +12,6 @@
   </li>
 <% end %>
 
-<% if current_user.admin? %>
+<% if current_user && current_user.admin? %>
   <%= link_to 'New Procurement', new_procurement_path %>
 <% end %>

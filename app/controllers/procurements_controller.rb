@@ -1,6 +1,6 @@
 class ProcurementsController < ApplicationController
   before_action :set_procurement, only: [:show, :edit, :update, :destroy]
-  after_action :verify_authorized, except: [:new]
+  after_action :verify_authorized
 
   # GET /procurements
   # GET /procurements.json
@@ -25,13 +25,14 @@ class ProcurementsController < ApplicationController
   def new
     @products = Product.all
     @user = current_user
-    if @user.admin?
+    # if @user.admin?
       @procurement = Procurement.new
       @procurement.procurement_products.build
-    else
-      redirect_to root_path
-      flash[:alert] = "You must be an admin to do that."
-    end
+      authorize @procurement
+    # else
+    #   redirect_to root_path
+    #   flash[:alert] = "You must be an admin to do that."
+    # end
   end
 
   # GET /procurements/1/edit
@@ -115,6 +116,6 @@ class ProcurementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def procurement_params
-      params.require(:procurement).permit(:id, :name, :proc_start_date, :proc_end_date, :proc_terms, :proc_delivery_date, procurement_products_attributes: [:product_id, :quantity, :requirements, :_destroy])
+      params.require(:procurement).permit(:id, :category, :name, :proc_start_date, :proc_end_date, :proc_terms, :proc_delivery_date, procurement_products_attributes: [:product_id, :quantity, :requirements, :_destroy])
     end
 end

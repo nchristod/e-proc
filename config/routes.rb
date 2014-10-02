@@ -15,10 +15,12 @@ Rails.application.routes.draw do
   get 'guest/procurements' => 'visitors#index', as: :visitor_procurements
   get '/guest/procurements/:id' => 'visitors#show', as: :visitor_procurement
 
+  get '/users/:id/procurements/:procurement_id/products/:product_id/offers/new' => 'offers#new', as: :new_offer
+
   root :to => "visitors#home"
   devise_for :users
   resources :users do
-    # resources :procurements
-    resources :offers
+    # resources :procurement_products
+    resources :offers, except: [:new]
   end
 end

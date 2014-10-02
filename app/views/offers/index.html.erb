@@ -16,9 +16,9 @@
         <td><%= offer.offer_technical %></td>
         <td><%= offer.offer_economical %></td>
         <td><%= offer.delivery_date %></td>
-        <td><%= link_to 'Show', offer %></td>
-        <td><%= link_to 'Edit', edit_offer_path(offer) %></td>
-        <td><%= link_to 'Destroy', offer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [current_user, offer] %></td>
+        <td><%= link_to 'Edit', edit_user_offer_path(current_user, offer) %></td>
+        <td><%= link_to 'Destroy',[current_user, offer], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Offer', new_offer_path %>
+<%#= link_to 'New Offer', new_user_offer_path(@user) %>

@@ -10,7 +10,7 @@ describe "Procurement Policy" do
     let(:user) { nil }
 
     it { should     permit_auth(:show)    }
-    it { should_not permit_auth(:index) }
+    it { should permit_auth(:index) }
     it { should_not permit_auth(:create)  }
     it { should_not permit_auth(:new)     }
     it { should_not permit_auth(:update)  }

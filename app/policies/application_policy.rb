@@ -37,5 +37,10 @@ class ApplicationPolicy
   def scope
     Pundit.policy_scope!(user, record.class)
   end
+
+  def belongs_to_user?
+    user == record.user
+  end
+
 end
 

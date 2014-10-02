@@ -1,5 +1,7 @@
 class Procurement < ActiveRecord::Base
 
+  enum category: [:underbidding, :advantageous]
+
   has_many :offers
   has_many :procurement_products, dependent: :delete_all
   has_many :products, through: :procurement_products

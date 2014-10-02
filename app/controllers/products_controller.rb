@@ -1,10 +1,12 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized, except: [:show]
 
   # GET /products
   # GET /products.json
   def index
     @products = Product.all
+    authorize @products
   end
 
   # GET /products/1
@@ -17,18 +19,20 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    authorize @product
   end
 
   # GET /products/1/edit
   def edit
     @category = Category.find(params[:category_id])
+    authorize @product
   end
 
   # POST /products
   # POST /products.json
   def create
     @product = Product.new(product_params)
-
+    authorize @product
     respond_to do |format|
       if @product.save
         @category = Category.find(product_params[:category_id])
@@ -45,6 +49,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1.json
   def update
     @category = Category.find(product_params[:category_id])
+    authorize @product
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to [@category,@product], notice: 'Product was successfully updated.' }
@@ -59,6 +64,7 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
+    authorize @product
     @product.destroy
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }

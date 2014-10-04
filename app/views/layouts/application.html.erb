@@ -12,9 +12,14 @@
     <header>
       <%= render 'layouts/navigation' %>
     </header>
-    <main role="main">
+    <main role="main" class="container-fluid">
        <%= render 'layouts/messages' %>
        <%= yield %>
     </main>
+    <footer class="modal-footer">
+      <div class="container">
+        <p class="text-muted">E-Proc Alpha. Upatras 2013-2014</p>
+      </div>
+    </footer>
   </body>
 </html>

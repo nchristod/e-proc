@@ -9,7 +9,7 @@
       <span> <strong>Λήξη:</strong> <%= procurement.proc_end_date %></span>
       <span> <strong>Παράδοση:</strong> <%= procurement.proc_delivery_date %></span>
       <span> <strong>Είδος:</strong> <%= procurement.category %></span>
-      <button data-toggle="collapse" data-target="#<%= procurement.id %>" class="pull-right"><span class="caret"></span></button>
+      <button data-toggle="collapse" data-target="#<%= procurement.id %>" class="btn btn-sm pull-right"><span class="caret"></span></button>
     </div>
     <div class="panel-body collapse" id="<%= procurement.id %>">
       <% procurement.procurement_products.each do |prod| %>
@@ -49,9 +49,9 @@
                     <td> Needs model column</td>
                     <td><%=  offer.user.email %></td>
                     <td><%= offer.offer_economical %></td>
-                    <%= simple_form_for [offer.user, offer] do |f| %>
-                      <td><%= f.input :tech_eval, label: false, disabled: true unless offer.tech_eval.blank? %></td>
-                      <td><%= f.submit "Καταχώρηση Βαθμού", class: "btn btn-default", disabled: true unless offer.tech_eval.blank? %></td>
+                    <%= simple_form_for [offer.user, offer], remote: true do |f| %>
+                      <td><%= f.input :tech_eval, label: false %></td>
+                      <td><%= f.submit "Καταχώρηση Βαθμού", class: "btn btn-default" %></td>
                     <% end %>
                       
                   <% end %>

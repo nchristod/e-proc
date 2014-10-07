@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   get 'product/new' => 'products#new', as: :new_product
   post 'products' => 'products#create'
 
+  get 'procurements/archive' => 'procurements#archive', as: :expired_procurements
   resources :procurements
-  # get 'procurements' => 'procurements#index', as: :procurements
+
   get 'guest/procurements' => 'visitors#index', as: :visitor_procurements
   get '/guest/procurements/:id' => 'visitors#show', as: :visitor_procurement
 

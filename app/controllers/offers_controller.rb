@@ -1,6 +1,6 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: [:show, :edit, :update, :destroy]
-  after_action :verify_authorized
+  after_action :verify_authorized, except: [:update]
 
   before_filter :deny_creating_offers_for_others, only: [:new]
 
@@ -55,7 +55,6 @@ class OffersController < ApplicationController
   # PATCH/PUT /offers/1
   # PATCH/PUT /offers/1.json
   def update
-    authorize @offer
     respond_to do |format|
       if @offer.update(offer_params)
         format.html { redirect_to [current_user, @offer], notice: 'Offer was successfully updated.' }
@@ -86,6 +85,6 @@ class OffersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def offer_params
-      params.require(:offer).permit(:offer_technical, :offer_economical, :delivery_date, :product_id,  :procurement_id, :user_id)
+      params.require(:offer).permit(*policy(@offer || Offer).permitted_attributes)  #(:offer_technical, :offer_economical, :delivery_date, :product_id,  :procurement_id, :user_id)
     end
 end

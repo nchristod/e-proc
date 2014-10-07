@@ -3,9 +3,9 @@
 FactoryGirl.define do
   factory :procurement do
     name "MyString"
-    proc_start_date "2014-06-10 00:31:16"
-    proc_end_date "2014-06-10 00:31:16"
+    proc_start_date "2014-06-10"
+    proc_end_date "2014-06-15"
     proc_terms "MyText"
-    proc_delivery_date "2014-06-10 00:31:16"
+    proc_delivery_date "2014-06-20"
   end
 end

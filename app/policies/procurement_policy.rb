@@ -8,6 +8,10 @@ class ProcurementPolicy < ApplicationPolicy
     true
   end
 
+  def archive?
+    user && user.admin?
+  end
+
   def create?
     user && user.admin?
   end

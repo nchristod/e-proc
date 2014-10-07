@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Procurement, :type => :model do
   before :each do
-    @proc = FactoryGirl.create(:procurement)
+    @proc = FactoryGirl.build(:procurement)
   end
 
   it { should have_many :procurement_products }

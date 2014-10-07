@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141001182531) do
+ActiveRecord::Schema.define(version: 20141006164017) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20141001182531) do
     t.integer  "procurement_id"
     t.integer  "product_id"
     t.integer  "user_id"
+    t.integer  "tech_eval"
   end
 
   add_index "offers", ["procurement_id"], name: "index_offers_on_procurement_id"
@@ -46,10 +47,10 @@ ActiveRecord::Schema.define(version: 20141001182531) do
 
   create_table "procurements", force: true do |t|
     t.string   "name"
-    t.datetime "proc_start_date"
-    t.datetime "proc_end_date"
+    t.date     "proc_start_date"
+    t.date     "proc_end_date"
     t.text     "proc_terms"
-    t.datetime "proc_delivery_date"
+    t.date     "proc_delivery_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"

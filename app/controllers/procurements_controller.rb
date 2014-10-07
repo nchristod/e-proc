@@ -7,8 +7,14 @@ class ProcurementsController < ApplicationController
   def index
     # @user = User.find(params[:user_id])
     @user = current_user
-    @procurements = Procurement.all
+    @procurements = Procurement.all.active
     authorize @procurements
+  end
+
+  def archive
+    @procurements = Procurement.all.expired
+    authorize @procurements
+    render 'procurements/archive'
   end
 
   # GET /procurements/1

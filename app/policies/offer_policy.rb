@@ -40,5 +40,13 @@ class OfferPolicy < ApplicationPolicy
     user.supplier? && belongs_to_user?
   end
 
+  def permitted_attributes
+    if user.admin?
+      [:tech_eval]
+    elsif user.supplier?
+      [:offer_technical, :offer_economical, :delivery_date, :product_id, :procurement_id, :user_id]
+    end
+  end
+
 end
 

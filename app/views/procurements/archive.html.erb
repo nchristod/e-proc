@@ -1,0 +1,67 @@
+<h1>Expired procurements</h1>
+
+<% @procurements.each do |procurement| %>
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading text-center">
+      <span><strong>Διαγωνισμός:</strong> <%= procurement.name %></span>
+      <span> <strong>Έναρξη:</strong> <%= procurement.proc_start_date %></span>
+      <span> <strong>Λήξη:</strong> <%= procurement.proc_end_date %></span>
+      <span> <strong>Παράδοση:</strong> <%= procurement.proc_delivery_date %></span>
+      <span> <strong>Είδος:</strong> <%= procurement.category %></span>
+      <button data-toggle="collapse" data-target="#<%= procurement.id %>" class="pull-right"><span class="caret"></span></button>
+    </div>
+    <div class="panel-body collapse" id="<%= procurement.id %>">
+      <% procurement.procurement_products.each do |prod| %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Name: <span><%= prod.product.name %></span>
+          </div>
+          <p>
+            <span> Description: <%= prod.product.description %></span>
+            <span> Quantity: <%= prod.quantity %></span>
+            <span>Requirements: <%= prod.requirements %></span>
+          </p>
+
+          <div class="row clearfix">
+            <div class="col-md-12 table-responsive">
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr >
+                    <th class="text-center">
+                      Επωνυμία
+                    </th>
+                    <th class="text-center">
+                      Email
+                    </th>
+                    <th class="text-center">
+                      Τιμή Προσφοράς  
+                    </th>
+                    <th class="text-center">
+                      Τεχνική Αξιολόγηση  
+                    </th>
+                    <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;">
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% prod.product.offers.each do |offer| %>
+                    <td> Needs model column</td>
+                    <td><%=  offer.user.email %></td>
+                    <td><%= offer.offer_economical %></td>
+                    <%= simple_form_for [offer.user, offer] do |f| %>
+                      <td><%= f.input :tech_eval, label: false, disabled: true unless offer.tech_eval.blank? %></td>
+                      <td><%= f.submit "Καταχώρηση Βαθμού", class: "btn btn-default", disabled: true unless offer.tech_eval.blank? %></td>
+                    <% end %>
+                      
+                  <% end %>
+                </tbody>
+          
+              </table>
+            </div>
+          </div>   
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -49,9 +49,9 @@
                     <td> Needs model column</td>
                     <td><%=  offer.user.email %></td>
                     <td><%= offer.offer_economical %></td>
-                    <%= simple_form_for [offer.user, offer], remote: true do |f| %>
-                      <td><%= f.input :tech_eval, label: false %></td>
-                      <td><%= f.submit "Καταχώρηση Βαθμού", class: "btn btn-default" %></td>
+                    <%= simple_form_for [offer.user, offer] do |f| %>
+                      <td><%= f.input :tech_eval, label: false, disabled: true unless offer.tech_eval.blank? %></td>
+                      <td><%= f.submit "Καταχώρηση Βαθμού", class: "btn btn-default", disabled: true unless offer.tech_eval.blank? %></td>
                     <% end %>
                       
                   <% end %>

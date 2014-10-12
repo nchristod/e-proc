@@ -1,7 +1,7 @@
 feature 'Admin creates procurement', :devise do
   
 let(:user) { FactoryGirl.create(:user, :admin)  }
-let!(:procurement) { FactoryGirl.create(:procurement) }
+let!(:procurement) { FactoryGirl.build(:procurement) }
 
 before(:each) do
   signin(user.email, user.password)

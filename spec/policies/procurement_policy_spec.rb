@@ -4,7 +4,7 @@ describe "Procurement Policy" do
 
   subject { ProcurementPolicy.new(user, procurement) }
 
-  let(:procurement) { FactoryGirl.create(:procurement) }
+  let(:procurement) { FactoryGirl.build(:procurement) }
 
   context "for a visitor" do
     let(:user) { nil }

@@ -12,7 +12,7 @@ feature 'User index page', :devise do
   end
 
   before(:each) do
-    @user = User.create!(name: 'test_john', email: "test_john@example.com", password: "123password", role: 2)
+    @user = FactoryGirl.create(:user, :admin)
   end
 
   # Scenario: User listed on index page

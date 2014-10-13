@@ -63,6 +63,11 @@ class ProcurementsController < ApplicationController
 
     respond_to do |format|
       if @procurement.save
+        if params[:documents]
+          params[:documents].each { |document|
+            @procurement.documents.create(document: document)
+            }
+        end
         format.html { redirect_to @procurement, notice: 'Procurement was successfully created.' }
         format.json { render :show, status: :created, location: @procurement }
       else
@@ -122,6 +127,6 @@ class ProcurementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def procurement_params
-      params.require(:procurement).permit(:id, :category, :name, :proc_start_date, :proc_end_date, :proc_terms, :proc_delivery_date, procurement_products_attributes: [:product_id, :quantity, :requirements, :_destroy])
+      params.require(:procurement).permit(:id, :category, :name, :proc_start_date, :proc_end_date, :proc_terms, :proc_delivery_date, procurement_products_attributes: [:product_id, :quantity, :requirements, :_destroy], documents: [])
     end
 end

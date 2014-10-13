@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006164017) do
+ActiveRecord::Schema.define(version: 20141013103805) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -19,6 +19,20 @@ ActiveRecord::Schema.define(version: 20141006164017) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "documents", force: true do |t|
+    t.integer  "documentable_id"
+    t.string   "documentable_type"
+    t.string   "document_file_name"
+    t.integer  "document_file_size"
+    t.string   "document_content_type"
+    t.datetime "document_updated_at"
+    t.string   "document_fingerprint"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "documents", ["documentable_id", "documentable_type"], name: "index_documents_on_documentable_id_and_documentable_type"
 
   create_table "offers", force: true do |t|
     t.text     "offer_technical"

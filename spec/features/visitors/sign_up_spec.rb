@@ -9,8 +9,9 @@ feature 'Sign Up', :devise do
   #   When I sign up with a valid email address and password
   #   Then I see a successful sign up message
   scenario 'visitor can sign up with valid email address and password' do
+    pending
     sign_up_with('test@example.com', 'please123', 'please123')
-    expect(page).to have_content 'Welcome! You have signed up successfully.'
+    expect(page).to have_content 'A message with a confirmation link has been sent to your email address. Please open the link to activate your account.'
   end
 
   # Scenario: Visitor cannot sign up with invalid email address

@@ -62,6 +62,16 @@
   </div>
 </div>
 
+<label>Documentation:</label>
+<div>
+  <% @procurement.documents.each do |doc| %>
+    <li>
+    <%= link_to "#{doc.document_file_name}", doc.document.url %>
+    </li>
+  <% end %> 
+
+</div>
+
 
 <% if signed_in? && @user.admin? %>
   <%= link_to 'Edit', edit_procurement_path(@procurement) %> | 

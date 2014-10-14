@@ -11,7 +11,7 @@ end
 
 
   scenario 'with valid input' do  
-    pending "need to manually select the dates.boring.."
+    pending "need to manually select the dates.boring..rspec"
     fill_in "Title",  with: procurement.name
     fill_in "Terms and Conditions",  with: procurement.proc_terms
     fill_in "Start Date", with: procurement.proc_start_date

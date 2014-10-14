@@ -2,7 +2,7 @@
 
 <p>
   <strong>Category:</strong>
-  <%= @procurement.category.titleize %>
+  <%= @procurement.category.titleize if @procurement.category %>
 </p>
 
 <p>

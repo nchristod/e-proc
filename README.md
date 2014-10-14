@@ -1,3 +1,5 @@
+[![Build Status](https://magnum.travis-ci.com/nchristod/e-proc.svg?token=ignutXcn3zruuYWNuz3N&branch=master)](https://magnum.travis-ci.com/nchristod/e-proc)
+
 Eproc Ror
 =========
 

@@ -1,0 +1,14 @@
+= simple_form_for([current_user, @offer]) do |f|
+  = f.error_notification
+  .form-inputs
+    - if @offer.new_record?
+      %label Product:
+      = Product.find(params[:product_id]).name
+      = f.input :product_id, input_html: { value: params[:product_id]}, wrapper_html: {class: 'hidden'}
+      = f.input :procurement_id, input_html: { value: params[:procurement_id]}, wrapper_html: {class: 'hidden'}
+      = f.input :user_id, input_html: { value: current_user.id }, wrapper_html: {class: 'hidden'}
+    = f.input :offer_technical
+    = f.input :offer_economical
+    = f.input :delivery_date
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,48 @@
+%p#notice= notice
+%p
+  %strong Category:
+  = @procurement.category.titleize if @procurement.category
+%p
+  %strong Name:
+  = @procurement.name
+%p
+  %strong Proc start date:
+  = @procurement.proc_start_date
+%p
+  %strong Proc end date:
+  = @procurement.proc_end_date
+%p
+  %strong Proc terms:
+  = @procurement.proc_terms
+%p
+  %strong Proc delivery date:
+  = @procurement.proc_delivery_date
+.row.clearfix
+  .col-md-12.table-responsive
+    %table#tab_logic.table.table-bordered.table-hover.table-sortable
+      %thead
+        %tr
+          %th.text-center
+            Product
+          %th.text-center
+            Quantity
+          %th.text-center
+            Requirements
+          %th.text-center{:style => "border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"}
+      %tbody
+        - @procurement_products.each do |product|
+          %tr
+            %td= product.product.name
+            %td= product.quantity
+            %td= product.requirements
+            %td= link_to "Offer", new_offer_path(current_user, product_id: product.product.id, procurement_id: @procurement.id), class: 'btn btn-default' if @procurement.underbidding? && current_user.supplier?
+%label Documentation:
+%div
+  - @procurement.documents.each do |doc|
+    %li
+      = link_to "#{doc.document_file_name}", doc.document.url
+- if signed_in? && @user.admin?
+  = link_to 'Edit', edit_procurement_path(@procurement)
+  |
+  \#{link_to 'Delete', procurement_path(@procurement), :data => { :confirm => "Are you sure?" }, method: :delete} |
+= link_to 'Back', procurements_path

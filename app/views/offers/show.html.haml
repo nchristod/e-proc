@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Offer technical:
+  = @offer.offer_technical
+%p
+  %strong Offer economical:
+  = @offer.offer_economical
+%p
+  %strong Delivery date:
+  = @offer.delivery_date
+= link_to 'Edit', edit_user_offer_path(current_user, @offer)
+|
+\#{link_to 'Back', user_offers_path(current_user)}

@@ -1,0 +1,33 @@
+= simple_form_for @procurement, html_input: {class: 'form-horizontal'} do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :category do
+      = f.select :category, Procurement.categories.keys.map {|cat| [cat.titleize,cat]}, include_blank: true
+    = f.input :name, label: 'Title'
+    = f.input :proc_start_date, label: 'Start Date'
+    = f.input :proc_end_date, label: 'End Date'
+    = f.input :proc_terms, label: 'Terms and Conditions'
+    = f.input :documents, label: "Extra Documentation" do
+      = f.file_field :documents, {multiple: true, name: "documents[]"}
+    = f.input :proc_delivery_date, label: 'Delivery Date'
+    %label Products
+    .row.clearfix
+      .col-md-12.table-responsive
+        %table#table1.table.table-bordered.table-hover
+          %thead
+            %tr
+              %th.text-center
+                Product
+              %th.text-center
+                Quantity
+              %th.text-center
+                Requirements
+              %th.text-center{:style => "border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"}
+          %tbody.product_list
+            = f.simple_fields_for :procurement_products do |form|
+              = render 'procurement_product_fields', :f => form
+    .links
+      = link_to_add_association 'Add', f, :procurement_products,                                                                                                 |
+        :"data-association-insertion-node" => "tbody.product_list", :"data-association-insertion-method" => "append", class: 'btn btn-default btn-sm pull-right' |
+  .form-actions
+    = f.button :submit

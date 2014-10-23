@@ -14,5 +14,5 @@ RSpec.describe Procurement, :type => :model do
   it { should validate_presence_of :proc_end_date }
   it { should validate_presence_of :proc_delivery_date }
   it { should validate_presence_of :proc_terms }
-    
+
 end

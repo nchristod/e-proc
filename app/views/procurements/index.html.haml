@@ -1,0 +1,13 @@
+%h1 Listing procurements
+- @procurements.each do |procurement|
+  %li
+    .panel.panel-default
+      / Default panel contents
+      .panel-heading
+        Διαγωνισμός: #{procurement.id}ος
+      .panel-body
+        %div
+          Title: #{procurement.name}
+        %div= link_to "More..", procurement_path(procurement)
+      - if current_user && current_user.admin?
+        = link_to 'New Procurement', new_procurement_path

@@ -1,0 +1,17 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @procurement.name
+%p
+  %strong Proc start date:
+  = @procurement.proc_start_date
+%p
+  %strong Proc end date:
+  = @procurement.proc_end_date
+%p
+  %strong Proc terms:
+  = @procurement.proc_terms
+%p
+  %strong Proc delivery date:
+  = @procurement.proc_delivery_date
+= link_to 'Back', visitor_procurements_path

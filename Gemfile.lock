@@ -98,6 +98,8 @@ GEM
     guard-rspec (4.3.1)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
+    haml (4.0.5)
+      tilt
     hike (1.2.3)
     hitimes (1.2.2)
     hub (1.12.2)
@@ -270,6 +272,7 @@ DEPENDENCIES
   guard-bundler
   guard-rails
   guard-rspec
+  haml
   hub
   jbuilder (~> 2.0)
   jquery-rails

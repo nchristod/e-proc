@@ -1,0 +1,18 @@
+%h1 Listing offers
+%table
+  %thead
+    %tr
+      %th Offer technical
+      %th Offer economical
+      %th Delivery date
+      %th{:colspan => "3"}
+  %tbody
+    - @offers.each do |offer|
+      %tr
+        %td= offer.offer_technical
+        %td= offer.offer_economical
+        %td= offer.delivery_date
+        %td= link_to 'Show', [current_user, offer]
+        %td= link_to 'Edit', edit_user_offer_path(current_user, offer)
+        %td= link_to 'Destroy',[current_user, offer], method: :delete, data: { confirm: 'Are you sure?' }
+%br/

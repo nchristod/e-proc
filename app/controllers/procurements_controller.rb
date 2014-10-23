@@ -20,7 +20,7 @@ class ProcurementsController < ApplicationController
   # GET /procurements/1
   # GET /procurements/1.json
   def show
-    
+
     # @user = User.find(params[:user_id])
     @user = current_user
     authorize @procurement
@@ -32,9 +32,9 @@ class ProcurementsController < ApplicationController
     @products = Product.all
     @user = current_user
     # if @user.admin?
-      @procurement = Procurement.new
-      @procurement.procurement_products.build
-      authorize @procurement
+    @procurement = Procurement.new
+    @procurement.procurement_products.build
+    authorize @procurement
     # else
     #   redirect_to root_path
     #   flash[:alert] = "You must be an admin to do that."
@@ -105,7 +105,7 @@ class ProcurementsController < ApplicationController
   def destroy
     # @user = User.find(params[:user_id])
     @user = current_user
-    
+
     if @user.admin?
       authorize @procurement
       @procurement.destroy
@@ -129,4 +129,5 @@ class ProcurementsController < ApplicationController
     def procurement_params
       params.require(:procurement).permit(:id, :category, :name, :proc_start_date, :proc_end_date, :proc_terms, :proc_delivery_date, procurement_products_attributes: [:product_id, :quantity, :requirements, :_destroy], documents: [])
     end
+
 end

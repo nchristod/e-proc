@@ -1,0 +1,57 @@
+%h1 Expired procurements
+- @procurements.each do |procurement|
+  .panel.panel-default
+    / Default panel contents
+    .panel-heading.text-center
+      %span
+        %strong Διαγωνισμός:
+        = procurement.name
+      %span
+        %strong Έναρξη:
+        = procurement.proc_start_date
+      %span
+        %strong Λήξη:
+        = procurement.proc_end_date
+      %span
+        %strong Παράδοση:
+        = procurement.proc_delivery_date
+      %span
+        %strong Είδος:
+        = procurement.category
+      %button.btn.btn-sm.pull-right{"data-target" => "##{procurement.id}", "data-toggle" => "collapse"}
+        %span.caret
+    .panel-body.collapse{:id => procurement.id}
+      - procurement.procurement_products.each do |prod|
+        .panel.panel-default
+          .panel-heading
+            Name:
+            %span= prod.product.name
+          %p
+            %span
+              Description: #{prod.product.description}
+            %span
+              Quantity: #{prod.quantity}
+            %span
+              Requirements: #{prod.requirements}
+          .row.clearfix
+            .col-md-12.table-responsive
+              %table.table.table-bordered.table-hover
+                %thead
+                  %tr
+                    %th.text-center
+                      Επωνυμία
+                    %th.text-center
+                      Email
+                    %th.text-center
+                      Τιμή Προσφοράς
+                    %th.text-center
+                      Τεχνική Αξιολόγηση
+                    %th.text-center{:style => "border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"}
+                %tbody
+                  - prod.product.offers.each do |offer|
+                    %td Needs model column
+                    %td= offer.user.email
+                    %td= offer.offer_economical
+                    = simple_form_for [offer.user, offer] do |f|
+                      %td= f.input :tech_eval, label: false, disabled: true unless offer.tech_eval.blank?
+                      %td= f.submit "Καταχώρηση Βαθμού", class: "btn btn-default", disabled: true unless offer.tech_eval.blank?

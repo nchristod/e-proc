@@ -4,9 +4,6 @@ FactoryGirl.define do
   factory :procurement do
     name "My procurement"
     proc_terms "My terms"
-    proc_start_date "2014-10-10"
-    proc_end_date "2014-10-15"
-    proc_delivery_date "2014-10-20"
     user
 
     trait :underbidding do
@@ -15,6 +12,18 @@ FactoryGirl.define do
 
     trait :meat do
       category 1
+    end
+
+    trait :active do
+      proc_start_date Date.today
+      proc_end_date Date.today + 2
+      proc_delivery_date Date.today + 10
+    end
+
+    trait :expired do
+      proc_start_date Date.today - 10
+      proc_end_date Date.today - 2
+      proc_delivery_date Date.today + 10
     end
 
   end

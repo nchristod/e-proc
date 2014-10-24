@@ -21,7 +21,7 @@ class ProcurementPolicy < ApplicationPolicy
   end
 
   def update?
-    user && user.admin?
+    (user && user.admin?) && !expired?
   end
 
   def new?
@@ -30,6 +30,10 @@ class ProcurementPolicy < ApplicationPolicy
 
   def destroy?
     user && user.admin?
+  end
+
+  def expired?
+    record.proc_end_date < Date.today
   end
 
 end

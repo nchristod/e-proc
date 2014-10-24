@@ -8,14 +8,13 @@
     = f.input :proc_end_date, label: 'End Date', as: :datepicker, wrapper: :horizontal_form
     = f.input :proc_terms, label: 'Terms and Conditions', wrapper: :horizontal_form, input_html: {rows: 10, cols: 20}
     = f.input :proc_delivery_date, label: 'Delivery Date', as: :datepicker, wrapper: :horizontal_form
-    %p
-      = f.input :documents, label: "Extra Documentation", wrapper: :horizontal_file_input do
-        = f.file_field :documents, label: "Extra Documentation", multiple: true, name: 'documents[]'
+    = f.input :documents, label: "Extra Documentation", wrapper: :horizontal_file_input do
+      = f.file_field :documents, label: "Extra Documentation", multiple: true, name: 'documents[]'
 
-      - if @procurement.documents
-        - @procurement.documents.each do |doc|
-          %li
-            = link_to "#{doc.document_file_name}", doc.document.url
+    - if @procurement.documents
+      - @procurement.documents.each do |doc|
+        %li
+          = link_to "#{doc.document_file_name}", doc.document.url
     %p          
       %label Products
       .row.clearfix

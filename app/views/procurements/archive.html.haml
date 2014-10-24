@@ -1,8 +1,8 @@
 %h1 Expired procurements
 - @procurements.each do |procurement|
   .panel.panel-default
-    / Default panel contents
     .panel-heading.text-center
+      = link_to procurement_path(procurement)
       %span
         %strong Διαγωνισμός:
         = procurement.name

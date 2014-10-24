@@ -11,7 +11,6 @@ gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'pundit'
@@ -19,6 +18,7 @@ gem 'simple_form', github: 'plataformatec/simple_form', branch: 'master'
 gem 'cocoon'
 gem 'paperclip'
 group :development do
+  gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'guard-bundler'
@@ -30,6 +30,7 @@ group :development do
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
+  gem 'mailcatcher'
 end
 group :development, :test do
   gem 'factory_girl_rails'

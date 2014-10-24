@@ -1,13 +1,31 @@
 %p#notice= notice
-%p
-  %strong Offer technical:
-  = @offer.offer_technical
+%label
+  %h4 Procurement Call: 
+  = link_to @offer.procurement.name, procurement_path(@offer, @procurement)
+  %br
+    Offer for: 
+    = @offer.product.name.titleize
+
 %p
   %strong Offer economical:
   = @offer.offer_economical
-%p
-  %strong Delivery date:
-  = @offer.delivery_date
+  €
+
+- if @procurement.category == 'advantageous'
+  %p
+    %strong Offer technical:
+    = @offer.offer_technical
+  %p
+    %strong Delivery date:
+    = @offer.delivery_date
+
+-if @offer.documents
+  %label Extra Documentation:
+  .panel.panel-default
+    = @offer.documents.each do |doc|
+      %li
+      = link_to "#{doc.document_file_name}", doc.document.url
+      
 = link_to 'Edit', edit_user_offer_path(current_user, @offer)
 |
 \#{link_to 'Back', user_offers_path(current_user)}

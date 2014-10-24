@@ -42,6 +42,7 @@ class ProcurementsController < ApplicationController
   # GET /procurements/1/edit
   def edit
     @user = current_user
+    @products = Product.all
     authorize @procurement
 
     if !@user.admin?
@@ -79,9 +80,12 @@ class ProcurementsController < ApplicationController
   def update
     @user = current_user
     authorize @procurement
-    # @user = User.find(params[:user_id])
-
-    # if @user.admin?
+    if params[:documents]
+      params[:documents].each { |document|
+        @procurement.documents.create(document: document)
+        }
+    end
+    if @user.admin?
       respond_to do |format|
         if @procurement.update(procurement_params)
           format.html { redirect_to @procurement, notice: 'Procurement was successfully updated.' }
@@ -91,10 +95,10 @@ class ProcurementsController < ApplicationController
           format.json { render json: @procurement.errors, status: :unprocessable_entity }
         end
       end
-    # else
-    #   redirect_to root_path
-    #   flash[:alert] = "You must be an admin to do that."
-    # end
+    else
+      redirect_to root_path
+      flash[:alert] = "You must be an admin to do that."
+    end
   end
 
   # DELETE /procurements/1
@@ -124,7 +128,8 @@ class ProcurementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def procurement_params
-      params.require(:procurement).permit(:id, :category, :name, :proc_start_date, :proc_end_date, :proc_terms, :proc_delivery_date, procurement_products_attributes: [:id, :product_id, :quantity, :requirements, :_destroy], documents: [])
+      params.require(:procurement).permit(:id, :category, :name, :proc_start_date, :proc_end_date, :proc_terms, :proc_delivery_date, procurement_products_attributes: [:product_id, :quantity, :requirements, :_destroy, :id], documents: [])
+
     end
 
 end

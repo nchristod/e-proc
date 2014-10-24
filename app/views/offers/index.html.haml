@@ -2,6 +2,7 @@
 %table
   %thead
     %tr
+      %th Product
       %th Offer technical
       %th Offer economical
       %th Delivery date
@@ -9,6 +10,7 @@
   %tbody
     - @offers.each do |offer|
       %tr
+        %td= offer.product.name
         %td= offer.offer_technical
         %td= offer.offer_economical
         %td= offer.delivery_date

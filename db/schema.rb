@@ -50,9 +50,9 @@ ActiveRecord::Schema.define(version: 20141014130352) do
   add_index "offers", ["product_id"], name: "index_offers_on_product_id"
   add_index "offers", ["user_id"], name: "index_offers_on_user_id"
 
-  create_table "procurement_products", id: false, force: true do |t|
-    t.integer  "procurement_id", null: false
-    t.integer  "product_id",     null: false
+  create_table "procurement_products", force: true do |t|
+    t.integer  "procurement_id"
+    t.integer  "product_id"
     t.string   "quantity"
     t.text     "requirements"
     t.datetime "created_at"

@@ -37,7 +37,7 @@
             %td= product.requirements
             %td= link_to "Offer", new_offer_path(current_user, product_id: product.product.id, procurement_id: @procurement.id), class: 'btn btn-default' if @procurement.underbidding? && current_user.supplier?
 %label Documentation:
-%div
+.panel.panel-default
   - @procurement.documents.each do |doc|
     %li
       = link_to "#{doc.document_file_name}", doc.document.url

@@ -1,9 +1,13 @@
 class CreateProcurementProducts < ActiveRecord::Migration
-    create_join_table :procurements, :products, table_name: :procurement_products do |t|
+  def change
+    create_table :procurement_products do |t|
 
+      t.references :procurement
+      t.references :product
       t.string :quantity
       t.text :requirements
 
       t.timestamps
     end
+  end
 end

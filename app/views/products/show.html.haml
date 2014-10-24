@@ -7,4 +7,5 @@
   = @product.description
 = link_to 'Edit', edit_category_product_path(@category, @product)
 |
+= link_to "Delete", category_product_path(@category,@product), :data => { :confirm => "Are you sure?" }, :method => :delete
 \#{link_to 'Back', products_path}

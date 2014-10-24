@@ -9,5 +9,3 @@
         %div
           Title: #{procurement.name}
         %div= link_to "More..", procurement_path(procurement)
-      - if current_user && current_user.admin?
-        = link_to 'New Procurement', new_procurement_path

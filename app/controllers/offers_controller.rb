@@ -28,12 +28,14 @@ class OffersController < ApplicationController
   # GET /offers/new
   def new
     @offer = Offer.new
+    @procurement = Procurement.find(params[:procurement_id])
     authorize @offer
   end
 
   # GET /offers/1/edit
   def edit
     authorize @offer
+    @procurement = @offer.procurement
   end
 
   # POST /offers
@@ -43,6 +45,11 @@ class OffersController < ApplicationController
     authorize @offer
     respond_to do |format|
       if @offer.save
+        if params[:documents]
+          params[:documents].each { |document|
+            @offer.documents.create(document: document)
+            }
+        end
         format.html { redirect_to [current_user, @offer], notice: 'Offer was successfully created.' }
         format.json { render :show, status: :created, location: @offer }
       else
@@ -57,6 +64,11 @@ class OffersController < ApplicationController
   def update
     respond_to do |format|
       if @offer.update(offer_params)
+        if params[:documents]
+          params[:documents].each { |document|
+            @offer.documents.create(document: document)
+            }
+        end
         format.html { redirect_to [current_user, @offer], notice: 'Offer was successfully updated.' }
         format.json { render :show, status: :ok, location: @offer }
         # format.js

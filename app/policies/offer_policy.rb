@@ -44,7 +44,7 @@ class OfferPolicy < ApplicationPolicy
     if user.admin?
       [:tech_eval]
     elsif user.supplier?
-      [:offer_technical, :offer_economical, :delivery_date, :product_id, :procurement_id, :user_id]
+      [:offer_technical, :offer_economical, :delivery_date, :product_id, :procurement_id, :user_id, documents: []]
     end
   end
 

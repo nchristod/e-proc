@@ -16,7 +16,7 @@ feature 'User edit', :devise do
   #   When I change my email address
   #   Then I see an account updated message
   scenario 'user changes email address' do
-    pending
+    pending "Need to work around devise confirmable"
     user = FactoryGirl.create(:user, :simple)
     login_as(user, :scope => :user)
     visit edit_user_registration_path(user)

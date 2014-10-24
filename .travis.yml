@@ -1,1 +1,25 @@
 language: ruby
+
+rvm:
+  - 2.1.2
+  - 2.0.0
+  - 1.9.3
+
+script: 'bundle exec rake spec'
+
+bundler_args: --without development
+
+branches:
+  only:
+    - master
+
+notifications:
+  email:
+    - nchristod@gmail.com
+
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+  - rackup  # start a Web server
+  - sleep 3 # give Web server some time to bind to sockets, etc

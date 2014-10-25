@@ -6,7 +6,7 @@ describe "Procurement Policy" do
 
   context "for an Admin" do
     let(:user) { FactoryGirl.create(:user, :admin) }
-    let(:procurement) { FactoryGirl.create(:procurement, :expired) }
+    let(:procurement) { FactoryGirl.create(:procurement) }
 
     it { should permit_auth(:show)    }
     it { should permit_auth(:index) }
@@ -15,7 +15,7 @@ describe "Procurement Policy" do
     it { should permit_auth(:new)     }
 
     context "procurement expired" do
-      let(:procurement) { FactoryGirl.create(:procurement, :expired) }
+      let(:procurement) { FactoryGirl.create(:expired_procurement) }
 
       it { should_not permit_auth(:update) }
       it { should_not permit_auth(:edit) }
@@ -23,7 +23,7 @@ describe "Procurement Policy" do
     end
 
     context "procurement active" do
-      let(:procurement) { FactoryGirl.create(:procurement, :active) }
+      let(:procurement) { FactoryGirl.create(:procurement) }
 
       it { should permit_auth(:update) }
       it { should permit_auth(:edit) }
@@ -33,7 +33,7 @@ describe "Procurement Policy" do
 
   context "for a Supplier" do
     let(:user) { FactoryGirl.create(:user, :supplier) }
-    let(:procurement) { FactoryGirl.create(:procurement, :expired) }
+    let(:procurement) { FactoryGirl.create(:procurement) }
 
     it { should permit_auth(:show)    }
     it { should permit_auth(:index) }
@@ -47,7 +47,7 @@ describe "Procurement Policy" do
 
   context "for a Visitor" do
     let(:user) { FactoryGirl.create(:user, :simple) }
-    let(:procurement) { FactoryGirl.create(:procurement, :expired) }
+    let(:procurement) { FactoryGirl.create(:procurement) }
 
     it { should permit_auth(:show)    }
     it { should permit_auth(:index) }

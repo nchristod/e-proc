@@ -7,7 +7,9 @@ RSpec.describe Procurement, :type => :model do
 
   it { should have_many :procurement_products }
   it { should have_many :offers }
+  it { should have_many :products }
   it { should belong_to :user }
+  it { should have_many :documents }
 
   it { should validate_presence_of :name }
   it { should validate_presence_of :proc_start_date }

@@ -9,7 +9,7 @@ class ProcurementPolicy < ApplicationPolicy
   end
 
   def archive?
-    user && user.admin?
+    create?
   end
 
   def create?
@@ -29,7 +29,7 @@ class ProcurementPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user && user.admin?
+    create?
   end
 
   def expired?

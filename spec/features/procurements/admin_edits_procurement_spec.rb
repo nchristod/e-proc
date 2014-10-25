@@ -20,9 +20,9 @@ feature 'Admin edits procurement', :devise do
   end
 
   scenario "adds an attachment" do
-    attach_file('Extra Documentation', '/home/drugsha/documents/oteDNS')
+    attach_file('Extra Documentation', 'README')
     click_button 'Update Procurement'
-    expect(page).to have_content('oteDNS')
+    expect(page).to have_content('README')
   end
 
 end

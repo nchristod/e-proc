@@ -1,7 +1,8 @@
 %p#notice= notice
 %label
-  %h4 Procurement Call: 
-  = link_to @offer.procurement.name, procurement_path(@offer, @procurement)
+  %h4
+  Procurement Call:
+  = link_to @offer.procurement.name, procurement_path(@procurement)
   %br
     Offer for: 
     = @offer.product.name.titleize
@@ -11,7 +12,7 @@
   = @offer.offer_economical
   €
 
-- if @procurement.category == 'advantageous'
+- if @procurement.advantageous?
   %p
     %strong Offer technical:
     = @offer.offer_technical
@@ -25,7 +26,6 @@
     = @offer.documents.each do |doc|
       %li
       = link_to "#{doc.document_file_name}", doc.document.url
-      
 = link_to 'Edit', edit_user_offer_path(current_user, @offer)
 |
 \#{link_to 'Back', user_offers_path(current_user)}

@@ -15,7 +15,7 @@ categories = Category.create([
   {  name: 'Ιατρικά Μηχανήματα', description: 'Ακτινολογικά μηχανήματα, Μόνιτορ Ζωτικών λειτουργιών, Καρδιογράφοι, Συσκευές Υποστήριξης Ζωτικών λειτουργιών, κλπ'}
 ])
 
-prpoducts = Product.create([
+products = Product.create([
   {  name: 'Γάζες αντισηπτικές', description: 'Αντισηπτικές Γάζες, εμποτισμένες με σουλφαμίδα, πλάτους 6 cm', category_id: '3'},
   {  name: 'Σύριγγες 5 ml', description: 'Σύριγγες μιας χρήσης, χωρητικότητας 5 ml', category_id: '3'},
   {  name: 'Depon', description: 'Παυσίπονα depon, δισκία', category_id: '1'},

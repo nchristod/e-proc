@@ -3,6 +3,7 @@
 %p Εάν δεν είστε μέλος μπορείτε να δείτε τις τρέχουσες προκυρήξεις από τους συνδέσμους.
 %p Αν θέλετε να υποβάλλετε προσφορά για κάποιο διαγωνισμό θα πρέπει να κάνετε Sign Up.
 %p
-  = link_to 'Users:', users_path
-  = User.count
-  registered
+  - if signed_in? && policy(current_user).index?
+    = link_to 'Users:', users_path
+    = User.count
+    registered

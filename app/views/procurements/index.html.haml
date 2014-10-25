@@ -1,4 +1,6 @@
-%h1 Listing procurements
+%h1
+  Listing procurements
+  .rss.pull-right= link_to image_tag("glyphicons_social_37_rss.png"), procurements_url(format: :atom)
 - @procurements.each do |procurement|
   %li
     .panel.panel-default

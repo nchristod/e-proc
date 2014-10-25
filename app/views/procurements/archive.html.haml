@@ -2,10 +2,9 @@
 - @procurements.each do |procurement|
   .panel.panel-default
     .panel-heading.text-center
-      = link_to procurement_path(procurement)
       %span
         %strong Διαγωνισμός:
-        = procurement.name
+        = link_to procurement.name, procurement_path(procurement)
       %span
         %strong Έναρξη:
         = procurement.proc_start_date

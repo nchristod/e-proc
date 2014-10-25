@@ -1,12 +1,12 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: [:show, :edit, :update, :destroy]
-  after_action :verify_authorized, except: [:update]
+  after_action :verify_authorized
 
   before_filter :deny_creating_offers_for_others, only: [:new]
 
   def deny_creating_offers_for_others
     if current_user.id.to_s != params[:id]
-      flash[:error] = "Access Denied..........."
+      flash[:error] = "Access Denied."
       redirect_to procurements_path
     end
   end
@@ -35,7 +35,6 @@ class OffersController < ApplicationController
   # GET /offers/1/edit
   def edit
     authorize @offer
-    @procurement = @offer.procurement
   end
 
   # POST /offers
@@ -62,6 +61,7 @@ class OffersController < ApplicationController
   # PATCH/PUT /offers/1
   # PATCH/PUT /offers/1.json
   def update
+    authorize @offer
     if params[:documents]
       params[:documents].each { |document|
         @offer.documents.create(document: document)  
@@ -99,6 +99,7 @@ class OffersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_offer
       @offer = Offer.find(params[:id])
+      @procurement = @offer.procurement
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

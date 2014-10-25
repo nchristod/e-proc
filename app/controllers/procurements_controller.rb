@@ -9,6 +9,10 @@ class ProcurementsController < ApplicationController
     @user = current_user
     @procurements = Procurement.all.active
     authorize @procurements
+    respond_to do |format|
+      format.html
+      format.atom {render layout: false}
+    end
   end
 
   def archive

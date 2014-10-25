@@ -5,5 +5,7 @@ FactoryGirl.define do
     offer_technical "MyText"
     offer_economical "MyText"
     delivery_date "2014-06-10 00:35:16"
+    user
+    product
   end
 end

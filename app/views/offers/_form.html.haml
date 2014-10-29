@@ -12,7 +12,7 @@
     -if @procurement.category == 'advantageous'
       = f.input :offer_technical, label: 'Τεχνική Προσφορά', wrapper: :horizontal_form
       = f.input :delivery_date, label: 'Ημ/νια Παράδοσης', as: :datepicker, wrapper: :horizontal_form
-      = f.input :documents, label: 'Extra Documentation', wrapper: :horizontal_file_input do
-        = f.file_field :documents, {mutliple: true, name: 'documents[]'}
+    = f.input :documents, label: "Extra Documentation", wrapper: :horizontal_file_input do
+      = f.file_field :documents, label: "Extra Documentation", multiple: true, name: 'documents[]'
   .form-actions
     = f.button :submit

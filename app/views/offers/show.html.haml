@@ -21,11 +21,11 @@
     = @offer.delivery_date
 
 -if @offer.documents
-  %label Extra Documentation:
+  %label Documentation:
   .panel.panel-default
-    = @offer.documents.each do |doc|
+    - @offer.documents.each do |doc|
       %li
-      = link_to "#{doc.document_file_name}", doc.document.url
+        = link_to "#{doc.document_file_name}", doc.document.url
 = link_to 'Edit', edit_user_offer_path(current_user, @offer)
 |
 \#{link_to 'Back', user_offers_path(current_user)}

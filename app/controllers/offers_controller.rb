@@ -44,8 +44,8 @@ class OffersController < ApplicationController
       if @offer.save
         if params[:documents]
           params[:documents].each { |document|
-            @offer.documents.create(document: document)  
-          }
+            @offer.documents.create(document: document)
+            }
         end
         format.html { redirect_to [current_user, @offer], notice: 'Offer was successfully created.' }
         format.json { render :show, status: :created, location: @offer }
@@ -62,8 +62,8 @@ class OffersController < ApplicationController
     authorize @offer
     if params[:documents]
       params[:documents].each { |document|
-        @offer.documents.create(document: document)  
-      }
+        @offer.documents.create(document: document)
+        }
     end
     respond_to do |format|
       if @offer.update(offer_params)

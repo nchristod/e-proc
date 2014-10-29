@@ -25,11 +25,11 @@ class OfferPolicy < ApplicationPolicy
   end
 
   def edit?
-    update?
+    user.supplier? && belongs_to_user?
   end
 
   def update?
-    user.supplier? && belongs_to_user?
+    user.supplier? && belongs_to_user? || user.admin?
   end
 
   def new?

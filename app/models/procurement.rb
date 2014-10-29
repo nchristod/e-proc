@@ -22,6 +22,23 @@ class Procurement < ActiveRecord::Base
   has_many :documents, as: :documentable, dependent: :destroy
   accepts_nested_attributes_for :documents, allow_destroy: true
 
+
+  def find_best_offers
+    if self.underbidding?
+      self.products.each do |product|
+        best_offers = product.offers.select { |offer| offer.offer_economical == product.offers.minimum(:offer_economical) }
+      return best_offers
+      end
+    else
+      best_offers = []
+      self.products.each do |product|
+        sorted = product.offers.sort { |a,b| a.econ_tech_eval <=> b.econ_tech_eval }
+        best_offers = sorted.select { |offer| offer.econ_tech_eval == sorted.last.econ_tech_eval }
+      return best_offers
+      end
+    end
+  end
+
   private
     
     # Custom Validations
@@ -40,6 +57,5 @@ class Procurement < ActiveRecord::Base
         errors.add(:proc_delivery_date, "can't be before end date")
       end
     end
-
 
 end

@@ -3,12 +3,10 @@ class OffersController < ApplicationController
   after_action :verify_authorized
 
   before_filter :deny_creating_offers_for_others, only: [:new]
+  before_action :check_if_exists, only: [:create]
 
-  def deny_creating_offers_for_others
-    if current_user.id.to_s != params[:id]
-      flash[:error] = "Access Denied."
-      redirect_to procurements_path
-    end
+  def best_offers
+    @procurements = Procurement.all.expired
   end
 
   # GET /offers
@@ -96,6 +94,23 @@ class OffersController < ApplicationController
   end
 
   private
+    # This might need to be a policy
+    def deny_creating_offers_for_others
+      if current_user.id.to_s != params[:id]
+        flash[:error] = "Access Denied."
+        redirect_to procurements_path
+      end
+    end
+
+    # Check if supplier made the same offer already and if so redirect him
+    def check_if_exists
+      if Offer.exists?(user_id: params[:user_id],product_id: params[:offer][:product_id],procurement_id: params[:offer][:procurement_id])
+        
+        redirect_to user_offers_path(current_user)
+        flash[:error] = "Offer already created. Update it if you wish."
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_offer
       @offer = Offer.find(params[:id])

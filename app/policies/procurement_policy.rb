@@ -12,6 +12,10 @@ class ProcurementPolicy < ApplicationPolicy
     create?
   end
 
+  def best_offers?
+    create?
+  end
+
   def create?
     user && user.admin?
   end

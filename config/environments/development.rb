@@ -57,4 +57,5 @@ Rails.application.configure do
 
   #Paperclip imagemagick path
   Paperclip.options[:command_path] = "/usr/bin/"
+  Paperclip.options[:log] = true
 end

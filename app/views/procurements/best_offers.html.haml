@@ -1,0 +1,14 @@
+%h1 Best Offers
+- @procurements.each do |procurement|
+  .panel.panel-default
+    .panel-heading.text-center
+      = procurement.name
+      %button.btn.btn-sm.pull-right{"data-target" => "##{procurement.id}", "data-toggle" => "collapse"}
+        %span.caret
+    .panel-body.collapse{id: procurement.id}
+      - best = procurement.find_best_offers
+      - if best.count > 1
+        - best.each do |best_offer| 
+          %li
+            = best_offer.user.email
+            = best_offer.user.name

@@ -48,9 +48,13 @@
                     %th.text-center{:style => "border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"}
                 %tbody
                   - prod.product.offers.each do |offer|
-                    %td Needs model column
-                    %td= offer.user.email
-                    %td= offer.offer_economical
-                    = simple_form_for [offer.user, offer] do |f|
-                      %td= f.input :tech_eval, label: false, disabled: true unless offer.tech_eval.blank?
-                      %td= f.submit "Καταχώρηση Βαθμού", class: "btn btn-default", disabled: true unless offer.tech_eval.blank?
+                    %tr
+                      %td Needs model column
+                      %td= offer.user.email
+                      %td= offer.offer_economical
+                      = simple_form_for [offer.user, offer] do |f|
+                        - unless offer.tech_eval
+                          %td= f.input :tech_eval, label: false
+                          %td= f.submit "Καταχώρηση Βαθμού", class: "btn btn-default", data: { :confirm => "Are you sure?" }
+                        -else
+                          %td= offer.tech_eval

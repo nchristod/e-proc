@@ -21,6 +21,12 @@ class ProcurementsController < ApplicationController
     render 'procurements/archive'
   end
 
+  def best_offers
+    @procurements = Procurement.all.expired
+    authorize @procurements
+    render 'procurements/best_offers'
+  end
+
   # GET /procurements/1
   # GET /procurements/1.json
   def show

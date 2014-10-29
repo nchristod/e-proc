@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  # resources :offers
+  
+  get 'procurements/best_offers' => 'procurements#best_offers', as: :best_offers
 
   resources :categories do 
     resources :products, except: [:index, :new, :create, :show]

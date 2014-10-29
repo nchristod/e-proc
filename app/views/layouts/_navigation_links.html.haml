@@ -15,8 +15,7 @@
           %li= link_to 'New Procurement', new_procurement_path
           %li= link_to("Expired Procurements", expired_procurements_path)
           %li.divider
-          %li
-            %a{:href => "#"} One more separated link
+          %li= link_to 'Best Offers', best_offers_path
     - elsif current_user.supplier?
       %li.dropdown
         %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}

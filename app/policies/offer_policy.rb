@@ -25,11 +25,11 @@ class OfferPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.supplier? && belongs_to_user?
+    user.supplier? && belongs_to_user? && !record.expired?
   end
 
   def update?
-    user.supplier? && belongs_to_user? || user.admin?
+    user.supplier? && belongs_to_user? && !record.expired? || user.admin?
   end
 
   def new?

@@ -21,23 +21,31 @@ describe "Offer Policy" do
   context "for a Supplier" do
     let(:user) { FactoryGirl.create(:user, :supplier) }
 
-    xit { should permit_auth(:show) }
     it { should permit_auth(:index) }
     it { should permit_auth(:new) }
     it { should permit_auth(:create) }
-    xit { should permit_auth(:destroy) }
-    xit { should permit_auth(:edit) }
-    xit { should permit_auth(:update) }
+
+    context "when procurement is expired" do
+      before :each do
+        allow(offer).to receive_messages(expired?: true)
+      end
+
+      it { should_not permit_auth(:destroy) }
+      it { should_not permit_auth(:edit) }
+      it { should_not permit_auth(:update) }
+    end
+
+    context "when offer does not belong to user" do
+      before :each do
+        allow(subject).to receive_messages(belongs_to_user?: false)
+      end
+
+      it { should_not permit_auth(:show) }
+      it { should_not permit_auth(:edit) }
+      it { should_not permit_auth(:update) }
+      it { should_not permit_auth(:destroy) }
+    end
+    
   end
-
-  # permissions :show? do
-  #   let(:user) { FactoryGirl.create(:user, :supplier) }
-
-  #   it "denies access if the offer does not belong to user" do
-      
-  #     offer.stub(:expired?) {true}
-  #     expect(subject).not_to permit(:user, :offer) 
-  #   end
-  # end
 
 end

@@ -13,7 +13,7 @@ class OfferPolicy < ApplicationPolicy
   end
 
   def show?
-    user.supplier? || user.admin?
+    user.supplier? && belongs_to_user? || user.admin?
   end
 
   def index?
@@ -37,7 +37,7 @@ class OfferPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.supplier? && belongs_to_user?
+    user.supplier? && belongs_to_user? && !record.expired?
   end
 
   def permitted_attributes

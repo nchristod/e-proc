@@ -7,5 +7,6 @@ FactoryGirl.define do
     delivery_date "2014-06-10 00:35:16"
     user
     product
+    procurement
   end
 end

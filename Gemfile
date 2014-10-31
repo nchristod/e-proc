@@ -17,7 +17,9 @@ gem 'pundit'
 gem 'simple_form', github: 'plataformatec/simple_form', branch: 'master'
 gem 'cocoon'
 gem 'paperclip'
+gem 'workflow'
 group :development do
+  gem 'byebug'
   gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]

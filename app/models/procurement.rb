@@ -22,6 +22,9 @@ class Procurement < ActiveRecord::Base
   has_many :documents, as: :documentable, dependent: :destroy
   accepts_nested_attributes_for :documents, allow_destroy: true
 
+  def self.set_styles
+    { :original => true }
+  end
 
   def find_best_offers
     if self.underbidding?

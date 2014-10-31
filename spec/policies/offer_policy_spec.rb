@@ -4,7 +4,7 @@ describe "Offer Policy" do
 
   subject { OfferPolicy.new(user, offer) }
 
-  let(:offer) { FactoryGirl.build(:offer) }
+  let(:offer) { FactoryGirl.create(:offer) }
 
   context "for an Admin" do
     let(:user) { FactoryGirl.create(:user, :admin) }
@@ -21,7 +21,7 @@ describe "Offer Policy" do
   context "for a Supplier" do
     let(:user) { FactoryGirl.create(:user, :supplier) }
 
-    it { should permit_auth(:show) }
+    xit { should permit_auth(:show) }
     it { should permit_auth(:index) }
     it { should permit_auth(:new) }
     it { should permit_auth(:create) }
@@ -30,5 +30,14 @@ describe "Offer Policy" do
     xit { should permit_auth(:update) }
   end
 
+  # permissions :show? do
+  #   let(:user) { FactoryGirl.create(:user, :supplier) }
+
+  #   it "denies access if the offer does not belong to user" do
+      
+  #     offer.stub(:expired?) {true}
+  #     expect(subject).not_to permit(:user, :offer) 
+  #   end
+  # end
 
 end

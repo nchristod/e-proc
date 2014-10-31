@@ -35,7 +35,7 @@
             %td= product.product.name
             %td= product.quantity
             %td= product.requirements
-            %td= link_to "Offer", new_offer_path(current_user, product_id: product.product.id, procurement_id: @procurement.id), class: 'btn btn-default' if  current_user.supplier?
+            %td= link_to "Offer", new_offer_path(current_user, product_id: product.product.id, procurement_id: @procurement.id), class: 'btn btn-default' if user_signed_in? && current_user.supplier?
 %label Documentation:
 .panel.panel-default
   - @procurement.documents.each do |doc|

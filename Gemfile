@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.1.1'
-gem 'pg'
 gem 'haml'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -23,7 +22,6 @@ gem 'capistrano', '~> 3.2.1'
 gem 'capistrano-rails', '~> 1.1'
 
 group :development do
-  gem 'sqlite3'
   gem 'byebug'
   gem 'spring'
   gem 'better_errors'
@@ -40,12 +38,14 @@ group :development do
   gem 'mailcatcher'
 end
 group :development, :test do
+  gem 'sqlite3'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'thin'
 end
 group :production do
   gem 'unicorn'
+  gem 'pg'
 end
 group :test do
   gem 'capybara'

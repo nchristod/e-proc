@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.1.1'
-gem 'sqlite3'
+gem 'pg'
 gem 'haml'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -18,7 +18,12 @@ gem 'simple_form', github: 'plataformatec/simple_form', branch: 'master'
 gem 'cocoon'
 gem 'paperclip'
 gem 'workflow'
+
+gem 'capistrano', '~> 3.2.1'
+gem 'capistrano-rails', '~> 1.1'
+
 group :development do
+  gem 'sqlite3'
   gem 'byebug'
   gem 'spring'
   gem 'better_errors'

@@ -18,9 +18,6 @@ gem 'cocoon'
 gem 'paperclip'
 gem 'workflow'
 
-gem 'capistrano', '~> 3.2.1'
-gem 'capistrano-rails', '~> 1.1'
-
 group :development do
   gem 'byebug'
   gem 'spring'
@@ -36,6 +33,10 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'mailcatcher'
+  gem 'capistrano', '~> 3.2.1'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-rbenv', '~> 2.0.2'
 end
 group :development, :test do
   gem 'sqlite3'

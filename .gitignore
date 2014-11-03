@@ -80,3 +80,6 @@ pickle-email-*.html
 # Capistrano
 Capfile
 config/deploy*
+
+# Ignore database.yml file to prevent password leakage
+/config/database.yml

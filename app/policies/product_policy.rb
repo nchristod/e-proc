@@ -8,4 +8,12 @@ class ProductPolicy < ProcurementPolicy
     user
   end
 
+  def edit?
+    user && user.admin?
+  end
+
+  def update?
+    edit?
+  end
+
 end

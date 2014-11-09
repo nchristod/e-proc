@@ -7,24 +7,20 @@ class Offer < ActiveRecord::Base
   has_many :documents, as: :documentable, dependent: :destroy
   accepts_nested_attributes_for :documents, allow_destroy: true
 
-  # Worklow
-  # workflow do
-  #   state :active do
-  #     event :submit, :transitions_to => :awaiting_review
-  #   end
-  #   state :awaiting_review do
-  #     event :review, :transitions_to => :being_reviewed
-  #   end
-  #   state :being_reviewed do
-  #     event :accept, :transitions_to => :accepted
-  #     event :reject, :transitions_to => :rejected
-  #   end
-  #   state :accepted
-  #   state :rejected
-  # end
+  include Workflow
+  workflow do
+    state :sealed do
+      event :unseal_technical, :transitions_to => :technical_evaluation, 
+                                if: proc { |offer| offer.procurement.advantageous? }
+    end
+    state :technical_evaluation do
+      event :unseal_economical, :transitions_to => :unsealed
+    end
+    state :unsealed
+  end
 
   def is_active?
-    self.procurement.proc_end_date > Date.today
+    self.procurement.proc_end_date >= Date.today
   end 
 
   def expired?
@@ -33,6 +29,10 @@ class Offer < ActiveRecord::Base
 
   def self.set_styles
     { encrypted: {processors: [:file_encryptor], key: File.read("#{Rails.root}/key")} }
+  end
+
+  def unseal_technical
+    self.documents.each { |attachment| attachment.decrypt }
   end
 
   def econ_tech_eval

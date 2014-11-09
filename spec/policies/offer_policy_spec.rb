@@ -11,11 +11,21 @@ describe "Offer Policy" do
 
     it { should_not permit_auth(:new) }
     it { should_not permit_auth(:create) }
-    it { should permit_auth(:show) }
+    it { should_not permit_auth(:show) }
     it { should permit_auth(:index) }
     it { should_not permit_auth(:edit) }
-    it { should permit_auth(:update) }
+    it { should_not permit_auth(:update) }
     it { should_not permit_auth(:destroy) }
+
+    context "when procurement is expired" do
+      before :each do
+        allow(offer).to receive_messages(expired?: true)
+      end
+
+      # it { should_not permit_auth(:destroy) }
+      it { should permit_auth(:show) }
+      it { should permit_auth(:update) }
+    end
   end
 
   context "for a Supplier" do

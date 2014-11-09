@@ -29,3 +29,6 @@
 = link_to 'Edit', edit_user_offer_path(current_user, @offer)
 |
 \#{link_to 'Back', user_offers_path(current_user)}
+
+- if policy(@offer).send_winner_email? && @procurement_product.best_offer_id == @offer.id
+  = link_to "Send Email to Winner", send_winner_email_user_offer_path(@offer.user, @offer), class: "btn btn-default", data: { confirm: 'Are you sure?' }

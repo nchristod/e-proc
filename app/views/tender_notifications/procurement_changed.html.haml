@@ -1,0 +1,11 @@
+%h1 TenderNotifications#procurement_changed
+
+\#{@greeting} #{@recipient},
+%p
+  Procurement call 
+  = link_to @procurement.name.titleize, procurement_url(@procurement) 
+  has been updated. Please check the changes and review your tender if needed.
+%p
+  Thank you,
+  %br
+    The E-Proc Team

@@ -18,6 +18,9 @@ class ProcurementsController < ApplicationController
   def archive
     @procurements = Procurement.all.expired
     authorize @procurements
+    @procurements.each do |procurement|
+      procurement.offers.each { |offer| offer.unseal_technical! if offer.sealed? }
+    end
     render 'procurements/archive'
   end
 
@@ -98,6 +101,7 @@ class ProcurementsController < ApplicationController
     if @user.admin?
       respond_to do |format|
         if @procurement.update(procurement_params)
+          TenderNotifications.send_procurement_changed(@procurement)
           format.html { redirect_to @procurement, notice: 'Procurement was successfully updated.' }
           format.json { render :show, status: :ok, location: @procurement }
         else

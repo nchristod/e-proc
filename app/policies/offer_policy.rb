@@ -12,8 +12,12 @@ class OfferPolicy < ApplicationPolicy
     end
   end
 
+  def send_winner_email?
+    user.admin?
+  end
+
   def show?
-    user.supplier? && belongs_to_user? || user.admin?
+    (user.supplier? && belongs_to_user?) || (user.admin? && record.expired?)
   end
 
   def index?
@@ -29,7 +33,7 @@ class OfferPolicy < ApplicationPolicy
   end
 
   def update?
-    user.supplier? && belongs_to_user? && !record.expired? || user.admin?
+    (user.supplier? && belongs_to_user? && !record.expired?) || (user.admin? && record.expired?)
   end
 
   def new?

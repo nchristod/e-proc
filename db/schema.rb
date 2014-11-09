@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141026214208) do
+ActiveRecord::Schema.define(version: 20141108122543) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20141026214208) do
     t.integer  "product_id"
     t.integer  "user_id"
     t.integer  "tech_eval"
+    t.string   "workflow_state"
   end
 
   add_index "offers", ["procurement_id"], name: "index_offers_on_procurement_id"
@@ -57,6 +58,7 @@ ActiveRecord::Schema.define(version: 20141026214208) do
     t.text     "requirements"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "best_offer_id"
   end
 
   create_table "procurements", force: true do |t|
@@ -69,7 +71,6 @@ ActiveRecord::Schema.define(version: 20141026214208) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "category"
-    t.string   "workflow_state"
   end
 
   add_index "procurements", ["user_id"], name: "index_procurements_on_user_id"

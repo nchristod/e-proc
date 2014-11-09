@@ -9,6 +9,14 @@ class OffersController < ApplicationController
     @procurements = Procurement.all.expired
   end
 
+  def send_winner_email
+    @offer = Offer.find(params[:id])
+    authorize @offer
+    TenderNotifications.tender_won(@offer).deliver
+    flash[:notice] = "Email has been sent."
+    redirect_to user_offer_path(@offer.user, @offer)
+  end
+
   # GET /offers
   # GET /offers.json
   def index
@@ -20,6 +28,7 @@ class OffersController < ApplicationController
   # GET /offers/1
   # GET /offers/1.json
   def show
+    @procurement_product = @procurement.procurement_products.find_by_product_id(@offer.product.id)
     authorize @offer
   end
 
@@ -47,6 +56,7 @@ class OffersController < ApplicationController
             @offer.documents.create(document: document)
             }
         end
+        TenderNotifications.succesfull_submission(@offer).deliver
         format.html { redirect_to [current_user, @offer], notice: 'Offer was successfully created.' }
         format.json { render :show, status: :created, location: @offer }
       else

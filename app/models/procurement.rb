@@ -16,7 +16,7 @@ class Procurement < ActiveRecord::Base
   # Scopes
 
   scope :expired, -> { where("proc_end_date < ?", Date.today) }
-  scope :active, -> { where("proc_end_date > ?", Date.today) }
+  scope :active, -> { where("proc_end_date >= ?", Date.today) }
 
   # Attachments
   has_many :documents, as: :documentable, dependent: :destroy
@@ -27,18 +27,8 @@ class Procurement < ActiveRecord::Base
   end
 
   def find_best_offers
-    if self.underbidding?
-      self.products.each do |product|
-        best_offers = product.offers.select { |offer| offer.offer_economical == product.offers.minimum(:offer_economical) }
-      return best_offers
-      end
-    else
-      best_offers = []
-      self.products.each do |product|
-        sorted = product.offers.sort { |a,b| a.econ_tech_eval <=> b.econ_tech_eval }
-        best_offers = sorted.select { |offer| offer.econ_tech_eval == sorted.last.econ_tech_eval }
-      return best_offers
-      end
+    self.procurement_products.each do |p_product|
+      p_product.find_best_offer
     end
   end
 

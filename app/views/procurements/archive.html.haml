@@ -43,18 +43,20 @@
                       Email
                     %th.text-center
                       Τιμή Προσφοράς
-                    %th.text-center
-                      Τεχνική Αξιολόγηση
-                    %th.text-center{:style => "border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"}
+                    - if procurement.advantageous?
+                      %th.text-center
+                        Τεχνική Αξιολόγηση
+                      %th.text-center{:style => "border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"}
                 %tbody
                   - prod.product.offers.each do |offer|
                     %tr
                       %td Needs model column
                       %td= offer.user.email
                       %td= offer.offer_economical
-                      = simple_form_for [offer.user, offer] do |f|
-                        - unless offer.tech_eval
-                          %td= f.input :tech_eval, label: false
-                          %td= f.submit "Καταχώρηση Βαθμού", class: "btn btn-default", data: { :confirm => "Are you sure?" }
-                        -else
-                          %td= offer.tech_eval
+                      - if procurement.advantageous?
+                        = simple_form_for [offer.user, offer] do |f|
+                          - unless offer.tech_eval
+                            %td= f.input :tech_eval, label: false
+                            %td= f.submit "Καταχώρηση Βαθμού", class: "btn btn-default", data: { :confirm => "Are you sure?" }
+                          -else
+                            %td= offer.tech_eval

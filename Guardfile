@@ -7,10 +7,14 @@ guard :bundler do
   # watch(/^.+\.gemspec/)
 end
 
-guard 'rails' do
-  watch('Gemfile.lock')
-  watch(%r{^(config|lib)/.*})
-end
+# guard :shell, all_on_start: true do
+#   watch('Gemfile.lock') do |c|
+#     'thin -p 3030 --ssl -P tmp/pids/thin.pid start'
+#   end
+#   watch(%r{^(config|lib)/.*}) do |c|
+#     'thin -p 3030 --ssl -P tmp/pids/thin.pid start'
+#   end
+# end
 
 
 guard :rspec, cmd: "bundle exec rspec" do
@@ -33,4 +37,5 @@ guard :rspec, cmd: "bundle exec rspec" do
   watch(%r{^spec/acceptance/(.+)\.feature$})
   watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
 end
+
 

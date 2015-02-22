@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email
   validates_presence_of :password, if: :new_record?
+  validates :terms, acceptance: true
 
   def set_default_role
     self.role ||= :supplier

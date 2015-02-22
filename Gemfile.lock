@@ -123,11 +123,13 @@ GEM
     guard-bundler (2.0.0)
       bundler (~> 1.0)
       guard (~> 2.2)
-    guard-rails (0.6.0)
-      guard (~> 2.0)
+    guard-compat (1.2.1)
     guard-rspec (4.3.1)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
+    guard-shell (0.7.1)
+      guard (>= 2.0.0)
+      guard-compat (~> 1.0)
     haml (4.0.5)
       tilt
     hike (1.2.3)
@@ -313,8 +315,8 @@ DEPENDENCIES
   factory_girl_rails
   faker
   guard-bundler
-  guard-rails
   guard-rspec
+  guard-shell
   haml
   hub
   jbuilder (~> 2.0)

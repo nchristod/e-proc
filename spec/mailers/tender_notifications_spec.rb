@@ -15,7 +15,7 @@ RSpec.describe TenderNotifications, :type => :mailer do
     end
 
     it "renders the body" do
-      expect(mail.body.encoded).to match("Χαίρετε")
+      expect(mail.body.encoded).to match(offer.user.name)
     end
   end
 
@@ -44,7 +44,7 @@ RSpec.describe TenderNotifications, :type => :mailer do
     end
 
     it "renders the body" do
-      expect(mail.body.encoded).to match("Χαίρετε")
+      expect(mail.text_part.body.decoded).to match("Η Προκύρηξη")
     end
   end
 
@@ -58,7 +58,7 @@ RSpec.describe TenderNotifications, :type => :mailer do
     end
 
     it "renders the body" do
-      expect(mail.body.encoded).to match("Χαίρετε")
+      expect(mail.body.encoded).to match(offer.user.name)
     end
   end
 

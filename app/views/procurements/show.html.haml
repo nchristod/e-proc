@@ -1,21 +1,21 @@
 %p#notice= notice
 %p
-  %strong Category:
+  %strong Κατηγορία:
   = @procurement.category.titleize if @procurement.category
 %p
-  %strong Name:
+  %strong Τίτλος:
   = @procurement.name
 %p
-  %strong Proc start date:
+  %strong Ημ/νία Έναρξης:
   = @procurement.proc_start_date
 %p
-  %strong Proc end date:
+  %strong Ημ/νία Λήξης:
   = @procurement.proc_end_date
 %p
-  %strong Proc terms:
+  %strong Όροι/Σχόλια:
   = @procurement.proc_terms
 %p
-  %strong Proc delivery date:
+  %strong Ημ/νία Παράδοσης:
   = @procurement.proc_delivery_date
 .row.clearfix
   .col-md-12.table-responsive
@@ -23,11 +23,11 @@
       %thead
         %tr
           %th.text-center
-            Product
+            Προϊόν
           %th.text-center
-            Quantity
+            Ποσότητα
           %th.text-center
-            Requirements
+            Απαιτήσεις/Διευκρινήσεις
           %th.text-center{:style => "border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"}
       %tbody
         - @procurement_products.each do |product|
@@ -35,8 +35,8 @@
             %td= product.product.name
             %td= product.quantity
             %td= product.requirements
-            %td= link_to "Offer", new_offer_path(current_user, product_id: product.product.id, procurement_id: @procurement.id), class: 'btn btn-default' if user_signed_in? && current_user.supplier?
-%label Documentation:
+            %td= link_to "Προσφορά", new_offer_path(current_user, product_id: product.product.id, procurement_id: @procurement.id), class: 'btn btn-default' if user_signed_in? && current_user.supplier?
+%label Έγγραφα:
 .panel.panel-default
   - @procurement.documents.each do |doc|
     %li

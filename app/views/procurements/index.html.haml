@@ -1,5 +1,5 @@
 %h1
-  Listing procurements
+  Λίστα Προκυρήξεων
   .rss.pull-right= link_to image_tag("glyphicons_social_37_rss.png"), procurements_url(format: :atom)
 - @procurements.each do |procurement|
   %li
@@ -9,5 +9,5 @@
         Διαγωνισμός: #{procurement.id}ος
       .panel-body
         %div
-          Title: #{procurement.name}
-        %div= link_to "More..", procurement_path(procurement)
+          Τίτλος: #{procurement.name}
+        %div= link_to "Διαβάστε περισσότερα..", procurement_path(procurement)

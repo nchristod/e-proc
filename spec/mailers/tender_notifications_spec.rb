@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe TenderNotifications, :type => :mailer do
-  
+
   let(:offer) { FactoryGirl.build(:offer) }
   let(:procurement) { FactoryGirl.create(:procurement) }
 
@@ -15,7 +15,7 @@ RSpec.describe TenderNotifications, :type => :mailer do
     end
 
     it "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
+      expect(mail.body.encoded).to match("Χαίρετε")
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe TenderNotifications, :type => :mailer do
   #   end
 
   #   it "renders the body" do
-  #     expect(mail.body.encoded).to match("Hi")
+  #     expect(mail.body.encoded).to match("Χαίρετε")
   #   end
   # end
 
@@ -44,7 +44,7 @@ RSpec.describe TenderNotifications, :type => :mailer do
     end
 
     it "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
+      expect(mail.body.encoded).to match("Χαίρετε")
     end
   end
 
@@ -58,7 +58,7 @@ RSpec.describe TenderNotifications, :type => :mailer do
     end
 
     it "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
+      expect(mail.body.encoded).to match("Χαίρετε")
     end
   end
 

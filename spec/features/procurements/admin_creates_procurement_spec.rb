@@ -1,5 +1,5 @@
 feature 'Admin creates procurement', :devise do
-  
+
 let(:user) { FactoryGirl.create(:user, :admin)  }
 let!(:procurement) { FactoryGirl.build(:procurement) }
 
@@ -10,16 +10,16 @@ before(:each) do
 end
 
 
-  scenario 'with valid input', js: true do  
+  scenario 'with valid input', js: true do
     # skip "very slow js spec"
-    select "Advantageous", from: "Category"
-    fill_in "Title",  with: procurement.name
-    fill_in "Terms and Conditions",  with: procurement.proc_terms
-    fill_in "Start Date", with: procurement.proc_start_date.strftime("%m/%d/%Y")
-    fill_in "End Date", with: procurement.proc_end_date.strftime("%m/%d/%Y")
-    fill_in "Delivery Date", with: procurement.proc_delivery_date.strftime("%m/%d/%Y")
+    select "Advantageous", from: "Κατηγορία"
+    fill_in "Τίτλος",  with: procurement.name
+    fill_in "Όροι/Σχόλια",  with: procurement.proc_terms
+    fill_in "Ημ/νία Έναρξης", with: procurement.proc_start_date.strftime("%m/%d/%Y")
+    fill_in "Ημ/νία Λήξης", with: procurement.proc_end_date.strftime("%m/%d/%Y")
+    fill_in "Ημ/νία Παράδοσης", with: procurement.proc_delivery_date.strftime("%m/%d/%Y")
     click_button "Create Procurement"
-    expect(page).to have_content('Procurement was successfully created.')  
+    expect(page).to have_content('Procurement was successfully created.')
   end
 
   scenario 'with invalid input' do

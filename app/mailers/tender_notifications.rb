@@ -7,7 +7,7 @@ class TenderNotifications < ActionMailer::Base
   #   en.tender_notifications.succesfull_submission.subject
   #
   def succesfull_submission(offer)
-    @greeting = "Hi"
+    @greeting = "Χαίρετε"
     @user = User.find(offer.user_id)
     @offer = offer
     @procurement = Procurement.find(offer.procurement_id)
@@ -21,7 +21,7 @@ class TenderNotifications < ActionMailer::Base
   #   en.tender_notifications.tender_updated.subject
   #
   def tender_updated
-    @greeting = "Hi"
+    @greeting = "Χαίρετε"
 
     mail to: "to@example.org"
   end
@@ -33,14 +33,14 @@ class TenderNotifications < ActionMailer::Base
   #
   def self.send_procurement_changed(procurement)
     @recipients = []
-    procurement.offers.each { |off| @recipients << User.find(off.user_id).email }    
+    procurement.offers.each { |off| @recipients << User.find(off.user_id).email }
 
     @recipients.each { |recipient| procurement_changed(recipient,procurement).deliver }
   end
 
   def procurement_changed(recipient, procurement)
     @procurement = procurement
-    @greeting = "Hi"
+    @greeting = "Χαίρετε"
     @recipient = recipient
 
     mail to: recipient, subject: '[E-Proc] Procurement change!'
@@ -52,7 +52,7 @@ class TenderNotifications < ActionMailer::Base
   #   en.tender_notifications.tender_won.subject
   #
   def tender_won(offer)
-    @greeting = "Hi"
+    @greeting = "Χαίρετε"
     @offer = offer
     @user = offer.user
 

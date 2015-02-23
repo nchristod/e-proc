@@ -1,7 +1,7 @@
 = simple_form_for(@category) do |f|
   = f.error_notification
   .form-inputs
-    = f.input :name
-    = f.input :description
+    = f.input :name, label: 'Όνομα'
+    = f.input :description, label: 'Περιγραφή'
   .form-actions
     = f.button :submit

@@ -2,17 +2,21 @@
   = f.error_notification
   .form-inputs
     - if @offer.new_record?
-      %label Product:
-      = Product.find(params[:product_id]).name
+      .prod
+        %label Προϊόν:
+        = Product.find(params[:product_id]).name
+      .title
+        %strong Τίτλος Προκύρηξης:
+        = link_to @procurement.name, procurement_url(@procurement), target: :blank
       = f.input :product_id, input_html: { value: params[:product_id]}, wrapper_html: {class: 'hidden'}
       = f.input :procurement_id, input_html: { value: params[:procurement_id]}, wrapper_html: {class: 'hidden'}
       = f.input :user_id, input_html: { value: current_user.id }, wrapper_html: {class: 'hidden'}
 
-    = f.input :offer_economical
+    = f.input :offer_economical, label: 'Οικονομική Προσφορά', wrapper: :horizontal_form
     -if @procurement.category == 'advantageous'
       = f.input :offer_technical, label: 'Τεχνική Προσφορά', wrapper: :horizontal_form
       = f.input :delivery_date, label: 'Ημ/νια Παράδοσης', as: :datepicker, wrapper: :horizontal_form
-    = f.input :documents, label: "Extra Documentation", wrapper: :horizontal_file_input do
-      = f.file_field :documents, label: "Extra Documentation", multiple: true, name: 'documents[]'
+    = f.input :documents, label: "Έγγραφα", wrapper: :horizontal_file_input do
+      = f.file_field :documents, multiple: true, name: 'documents[]'
   .form-actions
-    = f.button :submit
+    = f.button :submit, "Δημιούργησε την Προσφορά"

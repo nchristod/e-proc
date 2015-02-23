@@ -1,27 +1,27 @@
 %p#notice= notice
 %label
   %h4
-  Procurement Call:
+  Τίτλος Προκύρηξης:
   = link_to @offer.procurement.name, procurement_path(@procurement)
   %br
-    Offer for: 
+    Προσφορά για:
     = @offer.product.name.titleize
 
 %p
-  %strong Offer economical:
+  %strong Οικονομική Προσφορά:
   = @offer.offer_economical
   €
 
 - if @procurement.advantageous?
   %p
-    %strong Offer technical:
+    %strong Τεχνική Προσφορά:
     = @offer.offer_technical
   %p
-    %strong Delivery date:
+    %strong Ημ/νία Παράδοσης:
     = @offer.delivery_date
 
 -if @offer.documents
-  %label Documentation:
+  %label Έγγραφα:
   .panel.panel-default
     - @offer.documents.each do |doc|
       %li
@@ -31,4 +31,4 @@
 \#{link_to 'Back', user_offers_path(current_user)}
 
 - if policy(@offer).send_winner_email? && @procurement_product.best_offer_id == @offer.id
-  = link_to "Send Email to Winner", send_winner_email_user_offer_path(@offer.user, @offer), class: "btn btn-default", data: { confirm: 'Are you sure?' }
+  = link_to "Στείλε Email στον νικητή", send_winner_email_user_offer_path(@offer.user, @offer), class: "btn btn-default", data: { confirm: 'Are you sure?' }

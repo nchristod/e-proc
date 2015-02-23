@@ -1,33 +1,33 @@
 = simple_form_for @procurement, html_input: {class: 'form-horizontal'} do |f|
   = f.error_notification
   .form-inputs
-    = f.input :category, wrapper: :horizontal_form do
+    = f.input :category, label:'Κατηγορία', wrapper: :horizontal_form do
       = f.select :category, Procurement.categories.keys.map {|cat| [cat.titleize,cat]}, include_blank: true
-    = f.input :name, label: 'Title', wrapper: :horizontal_form
-    = f.input :proc_start_date, label: 'Start Date', as: :datepicker, wrapper: :horizontal_form
-    = f.input :proc_end_date, label: 'End Date', as: :datepicker, wrapper: :horizontal_form
-    = f.input :proc_terms, label: 'Terms and Conditions', wrapper: :horizontal_form, input_html: {rows: 10, cols: 20}
-    = f.input :proc_delivery_date, label: 'Delivery Date', as: :datepicker, wrapper: :horizontal_form
-    = f.input :documents, label: "Extra Documentation", wrapper: :horizontal_file_input do
-      = f.file_field :documents, label: "Extra Documentation", multiple: true, name: 'documents[]'
+    = f.input :name, label: 'Τίτλος', wrapper: :horizontal_form
+    = f.input :proc_start_date, label: 'Ημ/νία Έναρξης', as: :datepicker, wrapper: :horizontal_form
+    = f.input :proc_end_date, label: 'Ημ/νία Λήξης', as: :datepicker, wrapper: :horizontal_form
+    = f.input :proc_terms, label: 'Όροι/Σχόλια', wrapper: :horizontal_form, input_html: {rows: 10, cols: 20}
+    = f.input :proc_delivery_date, label: 'Ημ/νία Παράδοσης', as: :datepicker, wrapper: :horizontal_form
+    = f.input :documents, label: "Συμπληρωματικά Έγγραφα", wrapper: :horizontal_file_input do
+      = f.file_field :documents, multiple: true, name: 'documents[]'
 
     - if @procurement.documents
       - @procurement.documents.each do |doc|
         %li
           = link_to "#{doc.document_file_name}", doc.document.url
-    %p          
-      %label Products
+    %p
+      %label Προϊόντα
       .row.clearfix
         .col-md-12.table-responsive
           %table#table1.table.table-bordered.table-hover
             %thead
               %tr
                 %th.text-center
-                  Product
+                  Προϊόν
                 %th.text-center
-                  Quantity
+                  Ποσότητα
                 %th.text-center
-                  Requirements
+                  Απαιτήσεις/Διευκρινήσεις
                 %th.text-center{:style => "border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"}
             %tbody.product_list
               = f.simple_fields_for :procurement_products do |form|

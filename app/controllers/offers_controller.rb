@@ -21,8 +21,15 @@ class OffersController < ApplicationController
   # GET /offers.json
   def index
     @user = current_user
-    @offers = policy_scope(Offer)
+    @offers = policy_scope(Offer).with_sealed_state
     authorize @offers
+  end
+
+  def index_old
+    @user = current_user
+    @offers = policy_scope(Offer).with_unsealed_state
+    authorize @offers
+    render "offers/index"
   end
 
   # GET /offers/1
@@ -36,6 +43,7 @@ class OffersController < ApplicationController
   def new
     @offer = Offer.new
     @procurement = Procurement.find(params[:procurement_id])
+    @product = Product.find(params[:product_id])
     authorize @offer
   end
 
@@ -60,7 +68,7 @@ class OffersController < ApplicationController
         format.html { redirect_to [current_user, @offer], notice: 'Offer was successfully created.' }
         format.json { render :show, status: :created, location: @offer }
       else
-        format.html { render :new }
+        format.html { render :new } #probably needs redoing in params passing through actions
         format.json { render json: @offer.errors, status: :unprocessable_entity }
       end
     end
@@ -70,11 +78,6 @@ class OffersController < ApplicationController
   # PATCH/PUT /offers/1.json
   def update
     authorize @offer
-    if params[:documents]
-      params[:documents].each { |document|
-        @offer.documents.create(document: document)
-        }
-    end
     respond_to do |format|
       if @offer.update(offer_params)
         if params[:documents]
@@ -83,6 +86,21 @@ class OffersController < ApplicationController
             }
         end
         format.html { redirect_to [current_user, @offer], notice: 'Offer was successfully updated.' }
+        format.json { render :show, status: :ok, location: @offer }
+        # format.js
+      else
+        format.html { render :edit }
+        format.json { render json: @offer.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update_tech_eval
+    authorize @offer
+
+    respond_to do |format|
+      if @offer.update(params[:tech_eval])
+        format.html { redirect_to expired_procurements_url, notice: 'Offer was successfully updated.' }
         format.json { render :show, status: :ok, location: @offer }
         # format.js
       else
@@ -115,7 +133,7 @@ class OffersController < ApplicationController
     # Check if supplier made the same offer already and if so redirect him
     def check_if_exists
       if Offer.exists?(user_id: params[:user_id],product_id: params[:offer][:product_id],procurement_id: params[:offer][:procurement_id])
-        
+
         redirect_to user_offers_path(current_user)
         flash[:error] = "Offer already created. Update it if you wish."
       end

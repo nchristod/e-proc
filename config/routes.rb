@@ -5,8 +5,6 @@ Rails.application.routes.draw do
   get '/contact' => 'static_pages#contact'
   # get 'offers/:id/send_winner_email', to: 'offers#send_winner_email', as: :send_winner_email
 
-  get 'procurements/best_offers' => 'procurements#best_offers', as: :best_offers
-
   resources :categories do
     resources :products, except: [:index, :new, :create, :show]
   end
@@ -17,7 +15,10 @@ Rails.application.routes.draw do
   post 'products' => 'products#create'
 
   get 'procurements/archive' => 'procurements#archive', as: :expired_procurements
-  resources :procurements
+  get 'procurements/best_offers' => 'procurements#best_offers', as: :best_offers
+  resources :procurements do
+    put :set_best_offer
+  end
 
   # Depracated. Remove these routes and views
   # get 'guest/procurements' => 'visitors#index', as: :visitor_procurements
@@ -30,6 +31,8 @@ Rails.application.routes.draw do
   resources :users do
     resources :offers, except: [:new] do
       get :send_winner_email, on: :member
+      get :index_old, on: :collection
+      put :update_tech_eval
     end
   end
 end

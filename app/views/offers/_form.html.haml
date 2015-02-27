@@ -4,7 +4,7 @@
     - if @offer.new_record?
       .prod
         %label Προϊόν:
-        = Product.find(params[:product_id]).name
+        = @product.name
       .title
         %strong Τίτλος Προκύρηξης:
         = link_to @procurement.name, procurement_url(@procurement), target: :blank

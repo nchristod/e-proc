@@ -19,7 +19,10 @@ class ProcurementsController < ApplicationController
     @procurements = Procurement.all.expired
     authorize @procurements
     @procurements.each do |procurement|
-      procurement.offers.each { |offer| offer.unseal_technical! if offer.sealed? }
+      procurement.offers.each do |offer|
+        offer.unseal_technical! if offer.sealed?
+        offer.unseal_economical! if offer.technical_evaluation?
+      end
     end
     render 'procurements/archive'
   end
@@ -28,6 +31,16 @@ class ProcurementsController < ApplicationController
     @procurements = Procurement.all.expired
     authorize @procurements
     render 'procurements/best_offers'
+  end
+
+  def set_best_offer
+    procurement = Procurement.find(params[:procurement_id])
+    authorize procurement
+    p_prod = ProcurementProduct.find(params[:procurement_product_id])
+    offer_id = params[:offer_id]
+    p_prod.update(best_offer_id: params[:offer_id])
+
+    redirect_to best_offers_path
   end
 
   # GET /procurements/1
@@ -78,7 +91,7 @@ class ProcurementsController < ApplicationController
           params[:documents].each { |document|
             @procurement.documents.create(document: document)
             }
-        end        
+        end
         format.html { redirect_to @procurement, notice: 'Procurement was successfully created.' }
         format.json { render :show, status: :created, location: @procurement }
       else

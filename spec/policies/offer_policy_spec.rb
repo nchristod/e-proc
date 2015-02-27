@@ -12,7 +12,8 @@ describe "Offer Policy" do
     it { should_not permit_auth(:new) }
     it { should_not permit_auth(:create) }
     it { should_not permit_auth(:show) }
-    it { should permit_auth(:index) }
+    it { should_not permit_auth(:index) }
+    it { should permit_auth(:index_old) }
     it { should_not permit_auth(:edit) }
     it { should_not permit_auth(:update) }
     it { should_not permit_auth(:destroy) }
@@ -55,7 +56,7 @@ describe "Offer Policy" do
       it { should_not permit_auth(:update) }
       it { should_not permit_auth(:destroy) }
     end
-    
+
   end
 
 end

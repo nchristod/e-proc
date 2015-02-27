@@ -3,7 +3,7 @@ class OfferPolicy < ApplicationPolicy
   class Scope < Struct.new(:user, :scope)
     def resolve
       if user && user.admin?
-        scope.all 
+        scope.all
       elsif user == nil
         scope.none
       else
@@ -21,11 +21,15 @@ class OfferPolicy < ApplicationPolicy
   end
 
   def index?
+    user.supplier?
+  end
+
+  def index_old?
     user.supplier? || user.admin?
   end
 
   def create?
-    user.supplier? 
+    user.supplier?
   end
 
   def edit?
@@ -37,7 +41,7 @@ class OfferPolicy < ApplicationPolicy
   end
 
   def new?
-    create? 
+    create?
   end
 
   def destroy?

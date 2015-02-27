@@ -7,7 +7,7 @@ class ProcurementProduct < ActiveRecord::Base
   def find_best_offer
     if self.best_offer_id.blank?
       if self.procurement.underbidding?
-        min_offers = self.offers.select { |offer| offer.offer_economical == self.offers.minimum(:offer_economical) }
+        min_offers = self.offers.select { |offer| offer.encrypted_offer_economical == self.offers.minimum(:encrypted_offer_economical) }
         if min_offers.count == 1
           self.update(best_offer_id: min_offers[0].id)
           # return min_offers[0]

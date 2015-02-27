@@ -17,6 +17,7 @@ gem 'simple_form', '>=3.1'
 gem 'cocoon'
 gem 'paperclip'
 gem 'workflow'
+gem 'attr_encrypted'
 
 group :development do
   gem 'byebug'
@@ -53,6 +54,6 @@ group :test do
   gem 'database_cleaner'
   gem 'faker'
   gem 'launchy'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '>=2.45.0.dev3' #pined to workaround firefox 35 bug breaking tests
   gem 'shoulda-matchers', require: false
 end

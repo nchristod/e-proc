@@ -1,5 +1,7 @@
-%h1 Λίστα Προϊόντων
-%table
+.page-header
+  %h1 Λίστα Προϊόντων
+
+%table.table.table-striped
   %thead
     %tr
       %th Όνομα
@@ -10,6 +12,6 @@
       %tr
         %td= product.name
         %td= product.description
-        %td= link_to 'Show', product
+        %td= link_to 'Show', product, :class => 'btn btn-default btn-xs'
 %br/
 = link_to 'Νέο Προϊόν', new_product_path

@@ -23,24 +23,24 @@
       - procurement.procurement_products.each do |prod|
         .panel.panel-default
           .panel-heading
-            Name:
+            Προϊόν:
             %span= prod.product.name
           %p
             %span
-              Description: #{prod.product.description}
+              Περιγραφή: #{prod.product.description}
             %span
-              Quantity: #{prod.quantity}
+              Ποσότητα: #{prod.quantity}
             %span
-              Requirements: #{prod.requirements}
+              Απαιτήσεις: #{prod.requirements}
           .row.clearfix
             .col-md-12.table-responsive
               %table.table.table-bordered.table-hover
                 %thead
                   %tr
                     %th.text-center
-                      Επωνυμία
+                      ID Προσφ.
                     %th.text-center
-                      Email
+                      Email Προμηθευτή
                     %th.text-center
                       Τιμή Προσφοράς
                     - if procurement.advantageous?
@@ -50,11 +50,11 @@
                 %tbody
                   - prod.product.offers.each do |offer|
                     %tr
-                      %td Needs model column
+                      %td= link_to "#{offer.id}.", user_offer_path(offer.user, offer)
                       %td= offer.user.email
                       %td= offer.offer_economical
                       - if procurement.advantageous?
-                        = simple_form_for [offer.user, offer] do |f|
+                        = simple_form_for [offer, offer.user], url: user_offer_update_tech_eval_path(offer, offer.user), method: :put do |f|
                           - unless offer.tech_eval
                             %td= f.input :tech_eval, label: false
                             %td= f.submit "Καταχώρηση Βαθμού", class: "btn btn-default", data: { :confirm => "Are you sure?" }

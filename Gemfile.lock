@@ -29,6 +29,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
+    attr_encrypted (1.3.3)
+      encryptor (>= 1.3.0)
     autoprefixer-rails (5.1.7)
       execjs
       json
@@ -97,6 +99,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    encryptor (1.3.0)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.2.1)
@@ -227,7 +230,7 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
-    rubyzip (1.1.6)
+    rubyzip (1.1.7)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -237,7 +240,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (2.43.0)
+    selenium-webdriver (2.45.0.dev3)
       childprocess (~> 0.5)
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
@@ -297,6 +300,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  attr_encrypted
   better_errors
   binding_of_caller
   bootstrap-sass (>= 3.3)
@@ -333,7 +337,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
-  selenium-webdriver
+  selenium-webdriver (>= 2.45.0.dev3)
   shoulda-matchers
   simple_form (>= 3.1)
   spring

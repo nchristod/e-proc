@@ -20,6 +20,7 @@ describe "Procurement Policy" do
       it { should_not permit_auth(:update) }
       it { should_not permit_auth(:edit) }
       it { should permit_auth(:destroy) }
+      it { should permit_auth(:evaluation) }
     end
 
     context "procurement active" do
@@ -28,6 +29,7 @@ describe "Procurement Policy" do
       it { should permit_auth(:update) }
       it { should permit_auth(:edit) }
       it { should permit_auth(:destroy) }
+      it { should_not permit_auth(:evaluation) }
     end    
   end
 
@@ -37,7 +39,7 @@ describe "Procurement Policy" do
 
     it { should permit_auth(:show)    }
     it { should permit_auth(:index) }
-    it { should_not permit_auth(:archive) }
+    it { should_not permit_auth(:evaluation) }
     it { should_not permit_auth(:create)  }
     it { should_not permit_auth(:new)     }
     it { should_not permit_auth(:update) }
@@ -51,7 +53,7 @@ describe "Procurement Policy" do
 
     it { should permit_auth(:show)    }
     it { should permit_auth(:index) }
-    it { should_not permit_auth(:archive) }
+    it { should_not permit_auth(:evaluation) }
     it { should_not permit_auth(:create)  }
     it { should_not permit_auth(:new)     }
     it { should_not permit_auth(:update) }

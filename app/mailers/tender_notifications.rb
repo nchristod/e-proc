@@ -33,9 +33,13 @@ class TenderNotifications < ActionMailer::Base
   #
   def self.send_procurement_changed(procurement)
     @recipients = []
-    procurement.offers.each { |off| @recipients << User.find(off.user_id).email }
+    procurement.offers.each do |off|
+      @recipients << User.find(off.user_id).email
+    end
 
-    @recipients.each { |recipient| procurement_changed(recipient,procurement).deliver }
+    @recipients.each do |recipient|
+      procurement_changed(recipient,procurement).deliver
+    end
   end
 
   def procurement_changed(recipient, procurement)

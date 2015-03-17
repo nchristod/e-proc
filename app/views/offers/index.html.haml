@@ -11,11 +11,24 @@
   %tbody
     - @offers.each do |offer|
       %tr
-        %td= offer.product.name
-        %td= offer.offer_technical
-        %td= offer.offer_economical
-        %td= offer.delivery_date
-        %td= link_to 'Show', [current_user, offer], :class => 'btn btn-default btn-xs'
-        %td= link_to 'Edit', edit_user_offer_path(current_user, offer), :class => 'btn btn-default btn-xs'
-        %td= link_to 'Destroy',[current_user, offer], method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger btn-xs' unless offer.unsealed?
+        %td
+          = offer.product.name
+        %td
+          = offer.offer_technical
+        %td
+          = offer.offer_economical
+        %td
+          = offer.delivery_date
+        %td
+          = link_to 'Show',
+                    [current_user, offer],
+                    :class => 'btn btn-default btn-xs'
+        %td= link_to 'Edit',
+                      edit_user_offer_path(current_user, offer),
+                      :class => 'btn btn-default btn-xs'
+        %td= link_to 'Destroy',
+                      [current_user, offer],
+                      method: :delete,
+                      data: { confirm: 'Are you sure?' },
+                      :class => 'btn btn-danger btn-xs' unless offer.unsealed?
 %br/

@@ -1,6 +1,6 @@
 module Paperclip
   class FileEncryptor < Processor
-    
+
     def initialize file, options = {}, attachment = nil
       @file           = file
       @options        = options
@@ -13,7 +13,8 @@ module Paperclip
     def make
       begin
         # set contents attribute by reading the attachment file
-        @file.rewind # move pointer back to start of file in case handled by other processors
+        # move pointer back to start of file in case handled by other processors
+        @file.rewind
         file_content = File.read(@file.path)
 
         # salt  = SecureRandom.random_bytes(64)
@@ -26,7 +27,10 @@ module Paperclip
         new_file = Tempfile.new([@basename, "txt"].compact.join("."))
         new_file << encrypted_file_content
       rescue StandardError => e
-        raise Paperclip::Error, "There was an error processing the file contents for #{@basename} - #{e}" if @whiny
+        if @whiny
+          raise Paperclip::Error, "There was an error processing the
+           file contents for #{@basename} - #{e}"
+        end
       end
     end
   end

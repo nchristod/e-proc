@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20150223171808) do
   add_index "documents", ["documentable_id", "documentable_type"], name: "index_documents_on_documentable_id_and_documentable_type"
 
   create_table "offers", force: true do |t|
+    t.text     "encrypted_offer_technical"
     t.date     "delivery_date"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -43,7 +44,6 @@ ActiveRecord::Schema.define(version: 20150223171808) do
     t.integer  "user_id"
     t.integer  "tech_eval"
     t.string   "workflow_state"
-    t.text     "encrypted_offer_technical"
     t.string   "encrypted_offer_economical"
   end
 

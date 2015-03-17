@@ -10,10 +10,24 @@
   %tbody
     - @categories.each do |category|
       %tr
-        %td= category.name
-        %td= category.description
-        %td= link_to 'Show', category, :class => 'btn btn-default btn-xs'
-        %td= link_to 'Edit', edit_category_path(category), :class => 'btn btn-default btn-xs'
-        %td= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-xs btn-danger'
+        %td
+          = category.name
+        %td
+          = category.description
+        %td
+          = link_to 'Show',
+            category, :class => 'btn btn-default btn-xs'
+        %td
+          = link_to 'Edit',
+            edit_category_path(category),
+            :class => 'btn btn-default btn-xs'
+        %td
+          = link_to 'Destroy',
+            category,
+            method: :delete,
+            data: { confirm: 'Are you sure?' },
+            :class => 'btn btn-xs btn-danger'
 %br/
-= link_to 'Νέα Κατηγορία', new_category_path, :class => 'btn btn-default'
+= link_to 'Νέα Κατηγορία',
+  new_category_path,
+  :class => 'btn btn-default'

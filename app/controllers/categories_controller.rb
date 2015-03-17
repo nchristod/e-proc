@@ -34,11 +34,13 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        format.html { redirect_to @category, notice: 'Category was successfully created.' }
+        format.html { redirect_to @category,
+                      notice: 'Category was successfully created.' }
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
+        format.json { render json: @category.errors,
+                      status: :unprocessable_entity }
       end
     end
   end
@@ -49,11 +51,15 @@ class CategoriesController < ApplicationController
     authorize @category
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to @category, notice: 'Category was successfully updated.' }
-        format.json { render :show, status: :ok, location: @category }
+        format.html { redirect_to @category,
+                      notice: 'Category was successfully updated.' }
+        format.json { render :show,
+                      status: :ok,
+                      location: @category }
       else
         format.html { render :edit }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
+        format.json { render json: @category.errors,
+                      status: :unprocessable_entity }
       end
     end
   end
@@ -64,7 +70,8 @@ class CategoriesController < ApplicationController
     authorize @category
     @category.destroy
     respond_to do |format|
-      format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
+      format.html { redirect_to categories_url,
+                    notice: 'Category was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -75,7 +82,8 @@ class CategoriesController < ApplicationController
       @category = Category.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet,
+    # only allow the white list through.
     def category_params
       params.require(:category).permit(:name, :description)
     end

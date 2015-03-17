@@ -9,7 +9,11 @@ class ProcurementPolicy < ApplicationPolicy
   end
 
   def archive?
-    create?
+    true
+  end
+
+  def evaluation?
+    set_best_offer?
   end
 
   def best_offers?

@@ -1,6 +1,6 @@
 module Paperclip
   class NoProcessor < Processor
-    
+
     def initialize file, options = {}, attachment = nil
       @file           = file
       @options        = options

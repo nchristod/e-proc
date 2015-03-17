@@ -1,0 +1,24 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %title= content_for?(:title) ? yield(:title) : "Eproc Ror"
+    %meta{:content => content_for?(:description) ? yield(:description) : "Eproc Ror", :name => "description"}/
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+    = auto_discovery_link_tag(:atom, procurements_url(:format => :atom))
+  %body
+    %header= render 'layouts/navigation'
+    %main.container-fluid{:role => "main"}
+      = render 'layouts/messages'
+      = yield
+    %footer.modal-footer
+      .container
+        %ul.list-inline
+          %li= link_to 'Terms of Service', terms_path
+          %li= link_to 'Help', help_path
+          %li= link_to 'Contact Us', contact_path
+        %p.text-muted E-Proc Alpha. Upatras 2013-2014

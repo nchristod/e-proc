@@ -7,7 +7,7 @@ class ProcurementsController < ApplicationController
   def index
     # @user = User.find(params[:user_id])
     @user = current_user
-    @procurements = Procurement.all.active
+    @procurements = Procurement.active
     authorize @procurements
     respond_to do |format|
       format.html
@@ -16,15 +16,22 @@ class ProcurementsController < ApplicationController
   end
 
   def archive
-    @procurements = Procurement.all.expired
+    @procurements = Procurement.expired
     authorize @procurements
+    render 'procurements/index'
+  end
+
+  def evaluation
+    @procurements = Procurement.expired
+    # authorize @procurements
     @procurements.each do |procurement|
+      authorize procurement
       procurement.offers.each do |offer|
         offer.unseal_technical! if offer.sealed?
         offer.unseal_economical! if offer.technical_evaluation?
       end
     end
-    render 'procurements/archive'
+    render 'procurements/evaluation'
   end
 
   def best_offers
@@ -90,13 +97,17 @@ class ProcurementsController < ApplicationController
         if params[:documents]
           params[:documents].each { |document|
             @procurement.documents.create(document: document)
-            }
+          }
         end
-        format.html { redirect_to @procurement, notice: 'Procurement was successfully created.' }
-        format.json { render :show, status: :created, location: @procurement }
+        format.html { redirect_to @procurement,
+                      notice: 'Procurement was successfully created.' }
+        format.json { render :show,
+                      status: :created,
+                      location: @procurement }
       else
         format.html { render :new }
-        format.json { render json: @procurement.errors, status: :unprocessable_entity }
+        format.json { render json: @procurement.errors,
+                      status: :unprocessable_entity }
       end
     end
   end
@@ -109,17 +120,21 @@ class ProcurementsController < ApplicationController
     if params[:documents]
       params[:documents].each { |document|
         @procurement.documents.create(document: document)
-        }
+      }
     end
     if @user.admin?
       respond_to do |format|
         if @procurement.update(procurement_params)
           TenderNotifications.send_procurement_changed(@procurement)
-          format.html { redirect_to @procurement, notice: 'Procurement was successfully updated.' }
-          format.json { render :show, status: :ok, location: @procurement }
+          format.html { redirect_to @procurement,
+                        notice: 'Procurement was successfully updated.' }
+          format.json { render :show,
+                        status: :ok,
+                        location: @procurement }
         else
           format.html { render :edit }
-          format.json { render json: @procurement.errors, status: :unprocessable_entity }
+          format.json { render json: @procurement.errors,
+                        status: :unprocessable_entity }
         end
       end
     else
@@ -138,7 +153,8 @@ class ProcurementsController < ApplicationController
       authorize @procurement
       @procurement.destroy
       respond_to do |format|
-        format.html { redirect_to procurements_url, notice: 'Procurement was successfully destroyed.' }
+        format.html { redirect_to procurements_url,
+                      notice: 'Procurement was successfully destroyed.' }
         format.json { head :no_content }
       end
     else
@@ -148,15 +164,27 @@ class ProcurementsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_procurement
-      @procurement = Procurement.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_procurement
+    @procurement = Procurement.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def procurement_params
-      params.require(:procurement).permit(:id, :category, :name, :proc_start_date, :proc_end_date, :proc_terms, :proc_delivery_date, procurement_products_attributes: [:product_id, :quantity, :requirements, :_destroy, :id], documents: [])
-
-    end
+  # Never trust parameters from the scary internet,
+  # only allow the white list through.
+  def procurement_params
+    params.require(:procurement).permit(
+      :id,
+      :category,
+      :name,
+      :proc_start_date,
+      :proc_end_date,
+      :proc_terms,
+      :proc_delivery_date,
+      documents: [],
+      procurement_products_attributes: [:product_id,
+                                        :quantity,
+                                        :requirements,
+                                        :_destroy, :id])
+  end
 
 end

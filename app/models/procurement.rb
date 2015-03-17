@@ -8,15 +8,23 @@ class Procurement < ActiveRecord::Base
 
   belongs_to :user
 
-  accepts_nested_attributes_for :procurement_products, reject_if: lambda { |a| a[:quantity].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :procurement_products,
+                                reject_if: lambda { |a| a[:quantity].blank? },
+                                allow_destroy: true
 
-  validates_presence_of :name, :proc_start_date, :proc_end_date, :proc_delivery_date, :proc_terms
+  validates_presence_of :name, :proc_start_date,
+                        :proc_end_date, :proc_delivery_date, :proc_terms
   validate :proc_end_date_valid, :proc_delivery_date_valid
 
   # Scopes
 
   scope :expired, -> { where("proc_end_date < ?", Date.today) }
   scope :active, -> { where("proc_end_date >= ?", Date.today) }
+  # Delete these scopes. Not used
+  # scope :offerless, -> { includes(:offers).
+                            # where(offers: { procurement_id: nil}) }
+  # scope :old, -> { joins(:offers).uniq.
+                        # where(offers: {workflow_state: :unsealed}) }
 
   # Attachments
   has_many :documents, as: :documentable, dependent: :destroy
@@ -26,6 +34,14 @@ class Procurement < ActiveRecord::Base
     { :original => true }
   end
 
+  def self.archived
+    o = old
+    of = offerless
+    a_node = o.union(of)
+    table = Procurement.arel_table
+    Procurement.from(table.create_table_alias(a_node, :procurements))
+  end
+
   def find_best_offers
     self.procurement_products.each do |p_product|
       p_product.find_best_offer
@@ -33,14 +49,15 @@ class Procurement < ActiveRecord::Base
   end
 
   private
-    
+
     # Custom Validations
 
     def proc_end_date_valid
       return if self.proc_end_date.blank? || self.proc_start_date.blank?
 
       if self.proc_end_date <= self.proc_start_date
-        errors.add(:proc_end_date, "can't be before or equal with the starting date")
+        errors.add(:proc_end_date,
+                  "can't be before or equal with the starting date")
       end
     end
 

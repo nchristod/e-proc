@@ -3,10 +3,16 @@ class Document < ActiveRecord::Base
 
   # document uploads
   has_attached_file :document,
-                    :styles => { :encrypted => {:processors => [:file_encryptor], key: File.read("#{Rails.root}/key")} }
-                    # styles: lambda { |attachment| attachment.instance.documentable_type.constantize.set_styles  }
+                    :styles => {
+                      :encrypted => {:processors => [:file_encryptor],
+                                        key: File.read("#{Rails.root}/key")}
+                    }
+
+  # styles: lambda { |attachment| attachment.instance.
+  #                    documentable_type.constantize.set_styles  }
   # "application/msword", "application/octet-stream", "text/plain"
-  validates_attachment :document, 
+
+  validates_attachment :document,
             :content_type => { :content_type => ["application/pdf"] },
             :size => { :in => 0..10.megabytes },
             :file_name => { :matches => [/pdf\Z/] }
@@ -36,7 +42,7 @@ class Document < ActiveRecord::Base
       FileUtils.rm(path.to_s)
       path.parent.rmdir
     end
-    
+
   end
 
   # Passing lambda to styles..Something wrong with attachement initializer probably

@@ -1,4 +1,4 @@
-%h1 Expired procurements
+%h1 Αξιολόγηση Προσφορών
 - @procurements.each do |procurement|
   .panel.panel-default
     .panel-heading.text-center
@@ -17,7 +17,8 @@
       %span
         %strong Είδος:
         = procurement.category
-      %button.btn.btn-sm.pull-right{"data-target" => "##{procurement.id}", "data-toggle" => "collapse"}
+      %button.btn.btn-sm.pull-right{"data-target" => "##{procurement.id}",
+                                    "data-toggle" => "collapse"}
         %span.caret
     .panel-body.collapse{:id => procurement.id}
       - procurement.procurement_products.each do |prod|
@@ -46,17 +47,31 @@
                     - if procurement.advantageous?
                       %th.text-center
                         Τεχνική Αξιολόγηση
-                      %th.text-center{:style => "border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"}
+                      %th.text-center{:style => "border-top: 1px solid #ffffff; |
+                                            border-right: 1px solid #ffffff;"}  |
                 %tbody
                   - prod.product.offers.each do |offer|
                     %tr
-                      %td= link_to "#{offer.id}.", user_offer_path(offer.user, offer)
-                      %td= offer.user.email
-                      %td= offer.offer_economical
+                      %td
+                        = link_to "#{offer.id}.", user_offer_path(offer.user,
+                                                                  offer)
+                      %td
+                        = offer.user.email
+                      %td
+                        = offer.offer_economical
                       - if procurement.advantageous?
-                        = simple_form_for [offer, offer.user], url: user_offer_update_tech_eval_path(offer, offer.user), method: :put do |f|
+                        = simple_form_for [offer, offer.user],
+                              url: user_offer_update_tech_eval_path(offer,
+                                                                    offer.user),
+                              method: :put do |f|
                           - unless offer.tech_eval
-                            %td= f.input :tech_eval, label: false
-                            %td= f.submit "Καταχώρηση Βαθμού", class: "btn btn-default", data: { :confirm => "Are you sure?" }
+                            %td
+                              = f.input :tech_eval,
+                                        label: false
+                            %td
+                              = f.submit "Καταχώρηση Βαθμού",
+                                          class: "btn btn-default",
+                                          data: { :confirm => "Are you sure?" }
                           -else
-                            %td= offer.tech_eval
+                            %td
+                              = offer.tech_eval

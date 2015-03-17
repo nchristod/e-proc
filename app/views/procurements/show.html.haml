@@ -28,14 +28,24 @@
             Ποσότητα
           %th.text-center
             Απαιτήσεις/Διευκρινήσεις
-          %th.text-center{:style => "border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"}
+          %th.text-center{:style => "border-top: 1px solid #ffffff;    |
+                                    border-right: 1px solid #ffffff;"} |
       %tbody
         - @procurement_products.each do |product|
           %tr
-            %td= product.product.name
-            %td= product.quantity
-            %td= product.requirements
-            %td= link_to "Προσφορά", new_offer_path(current_user, product_id: product.product.id, procurement_id: @procurement.id), class: 'btn btn-default' if user_signed_in? && current_user.supplier?
+            %td
+              = product.product.name
+            %td
+              = product.quantity
+            %td
+              = product.requirements
+            %td
+              = link_to "Προσφορά",                                     |
+                        new_offer_path(current_user,                    |
+                                      product_id: product.product.id,   |
+                                      procurement_id: @procurement.id), |
+                        class: 'btn btn-default'                        |
+              if user_signed_in? && current_user.supplier?              |
 %label Έγγραφα:
 .panel.panel-default
   - @procurement.documents.each do |doc|
@@ -45,6 +55,9 @@
   = link_to 'Edit', edit_procurement_path(@procurement)
   |
 -if policy(@procurement).destroy?
-  = link_to 'Delete', procurement_path(@procurement), :data => { :confirm => "Are you sure?" }, method: :delete
+  = link_to 'Delete',
+            procurement_path(@procurement),
+            :data => { :confirm => "Are you sure?" },
+            method: :delete
   |
 = link_to 'Back', :back

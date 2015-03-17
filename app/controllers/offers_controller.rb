@@ -35,7 +35,8 @@ class OffersController < ApplicationController
   # GET /offers/1
   # GET /offers/1.json
   def show
-    @procurement_product = @procurement.procurement_products.find_by_product_id(@offer.product.id)
+    @procurement_product = @procurement.procurement_products.
+                                        find_by_product_id(@offer.product.id)
     authorize @offer
   end
 
@@ -65,11 +66,16 @@ class OffersController < ApplicationController
             }
         end
         TenderNotifications.succesfull_submission(@offer).deliver
-        format.html { redirect_to [current_user, @offer], notice: 'Offer was successfully created.' }
-        format.json { render :show, status: :created, location: @offer }
+        format.html { redirect_to [current_user, @offer],
+                      notice: 'Offer was successfully created.' }
+        format.json { render :show,
+                      status: :created,
+                      location: @offer }
       else
-        format.html { render :new } #probably needs redoing in params passing through actions
-        format.json { render json: @offer.errors, status: :unprocessable_entity }
+        #probably needs redoing in params passing through actions
+        format.html { render :new }
+        format.json { render json: @offer.errors,
+                      status: :unprocessable_entity }
       end
     end
   end
@@ -85,12 +91,16 @@ class OffersController < ApplicationController
             @offer.documents.create(document: document)
             }
         end
-        format.html { redirect_to [current_user, @offer], notice: 'Offer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @offer }
+        format.html { redirect_to [current_user, @offer],
+                      notice: 'Offer was successfully updated.' }
+        format.json { render :show,
+                      status: :ok,
+                      location: @offer }
         # format.js
       else
         format.html { render :edit }
-        format.json { render json: @offer.errors, status: :unprocessable_entity }
+        format.json { render json: @offer.errors,
+                      status: :unprocessable_entity }
       end
     end
   end
@@ -100,12 +110,16 @@ class OffersController < ApplicationController
 
     respond_to do |format|
       if @offer.update(params[:tech_eval])
-        format.html { redirect_to expired_procurements_url, notice: 'Offer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @offer }
+        format.html { redirect_to expired_procurements_url,
+                      notice: 'Offer was successfully updated.' }
+        format.json { render :show,
+                      status: :ok,
+                      location: @offer }
         # format.js
       else
         format.html { render :edit }
-        format.json { render json: @offer.errors, status: :unprocessable_entity }
+        format.json { render json: @offer.errors,
+                      status: :unprocessable_entity }
       end
     end
   end
@@ -116,7 +130,8 @@ class OffersController < ApplicationController
     authorize @offer
     @offer.destroy
     respond_to do |format|
-      format.html { redirect_to user_offers_url(current_user), notice: 'Offer was successfully destroyed.' }
+      format.html { redirect_to user_offers_url(current_user),
+                    notice: 'Offer was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -132,7 +147,9 @@ class OffersController < ApplicationController
 
     # Check if supplier made the same offer already and if so redirect him
     def check_if_exists
-      if Offer.exists?(user_id: params[:user_id],product_id: params[:offer][:product_id],procurement_id: params[:offer][:procurement_id])
+      if Offer.exists?(user_id: params[:user_id],
+                      product_id: params[:offer][:product_id],
+                      procurement_id: params[:offer][:procurement_id])
 
         redirect_to user_offers_path(current_user)
         flash[:error] = "Offer already created. Update it if you wish."
@@ -147,6 +164,7 @@ class OffersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def offer_params
-      params.require(:offer).permit(*policy(@offer || Offer).permitted_attributes)
+      params.require(:offer).
+             permit(*policy(@offer || Offer).permitted_attributes)
     end
 end

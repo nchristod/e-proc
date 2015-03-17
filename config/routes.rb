@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   get '/terms' => 'static_pages#terms'
   get '/help' => 'static_pages#help'
   get '/contact' => 'static_pages#contact'
-  # get 'offers/:id/send_winner_email', to: 'offers#send_winner_email', as: :send_winner_email
+  # get 'offers/:id/send_winner_email', to: 'offers#send_winner_email',
+  #                                       as: :send_winner_email
 
   resources :categories do
     resources :products, except: [:index, :new, :create, :show]
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
   post 'products' => 'products#create'
 
   get 'procurements/archive' => 'procurements#archive', as: :expired_procurements
+  get 'procurements/evaluation' => 'procurements#evaluation', as: :evaluation
   get 'procurements/best_offers' => 'procurements#best_offers', as: :best_offers
   resources :procurements do
     put :set_best_offer
@@ -24,7 +26,8 @@ Rails.application.routes.draw do
   # get 'guest/procurements' => 'visitors#index', as: :visitor_procurements
   # get '/guest/procurements/:id' => 'visitors#show', as: :visitor_procurement
 
-  get '/users/:id/procurements/:procurement_id/products/:product_id/offers/new' => 'offers#new', as: :new_offer
+  get '/users/:id/procurements/:procurement_id/products/:product_id/offers/new' => 'offers#new', 
+                                                                                      as: :new_offer
 
   root :to => "visitors#home"
   devise_for :users

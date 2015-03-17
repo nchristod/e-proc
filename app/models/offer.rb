@@ -11,11 +11,16 @@ class Offer < ActiveRecord::Base
   validates_presence_of :offer_economical
   validates_presence_of :delivery_date, if: Proc.new { |o| o.procurement.advantageous? }
 
-  # This is reduntant for the moment.Can be used better in future implementations with proper crypto key management systems
+  # This is reduntant for the moment.
+  # Can be used better in future implementations with proper
+  # crypto key management systems,
   include Workflow
   workflow do
     state :sealed do
-      event :unseal_technical, :transitions_to => :technical_evaluation #, if: proc { |offer| offer.procurement.advantageous? } # we fake the transitions in controller so this is not really needed
+      event :unseal_technical,
+            :transitions_to => :technical_evaluation
+            # we fake the transitions in controller so this is not really needed
+            #, if: proc { |offer| offer.procurement.advantageous? }
     end
     state :technical_evaluation do
       event :unseal_economical, :transitions_to => :unsealed
@@ -32,7 +37,10 @@ class Offer < ActiveRecord::Base
   end
 
   def self.set_styles
-    { encrypted: {processors: [:file_encryptor], key: File.read("#{Rails.root}/key")} }
+    { encrypted: {
+      processors: [:file_encryptor],
+      key: File.read("#{Rails.root}/key")}
+    }
   end
 
   def unseal_technical
@@ -45,7 +53,8 @@ class Offer < ActiveRecord::Base
 
   def econ_tech_eval
     if self.tech_eval
-      self.tech_eval / (self.offer_economical.to_i * ( 1 + ((self.delivery_date - self.procurement.proc_end_date).to_i/730)))
+      self.tech_eval / (self.offer_economical.to_i *
+        ( 1 + ((self.delivery_date - self.procurement.proc_end_date).to_i/730)))
     else
       "Den exoun ginei texnikes axiologiseis"
     end

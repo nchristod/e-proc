@@ -60,7 +60,7 @@
                       %td
                         = offer.offer_economical
                       - if procurement.advantageous?
-                        = simple_form_for [offer, offer.user],
+                        = simple_form_for [offer.user, offer],
                               url: user_offer_update_tech_eval_path(offer,
                                                                     offer.user),
                               method: :put do |f|
@@ -72,6 +72,6 @@
                               = f.submit "Καταχώρηση Βαθμού",
                                           class: "btn btn-default",
                                           data: { :confirm => "Are you sure?" }
-                          -else
+                          - else
                             %td
                               = offer.tech_eval

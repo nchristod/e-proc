@@ -59,21 +59,23 @@
                         = offer.user.email
                       %td
                         = offer.offer_economical
+                  - elsif conflicts.is_a? String
+                    = conflicts
                   - elsif conflicts.count > 1
-                    - conflicts.each do |offer|
+                    - conflicts.each do |of|
                       %tr
                         %td
-                          = link_to "#{offer.id}.",
-                                    user_offer_path(offer.user, offer)
+                          = link_to "#{of.id}.",
+                                    user_offer_path(of.user, of)
                         %td
-                          = offer.user.email
+                          = of.user.email
                         %td
-                          = offer.offer_economical
+                          = of.offer_economical
                         %td
                           = link_to "Επιλογή ως Βέλτιστης",
                               procurement_set_best_offer_path(procurement,
                                                               procurement_product_id: p_product.id,
-                                                              offer_id: offer.id ),
+                                                              offer_id: of.id ),
                               method: :put,
                               class: "btn btn-default",
                               data: { :confirm => "Are you sure?" }

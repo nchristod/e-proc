@@ -72,8 +72,8 @@ pickle-email-*.html
 .powenv
 
 # Capistrano
-Capfile
-config/deploy*
+#Capfile
+#config/deploy*
 
 # Ignore database.yml file to prevent password leakage
 /config/database.yml

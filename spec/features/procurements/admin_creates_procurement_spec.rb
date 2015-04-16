@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 feature 'Admin creates procurement', :devise do
 
 let(:user) { FactoryGirl.create(:user, :admin)  }

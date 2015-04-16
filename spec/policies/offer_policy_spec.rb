@@ -16,6 +16,7 @@ describe "Offer Policy" do
     it { should permit_auth(:index_old) }
     it { should_not permit_auth(:edit) }
     it { should_not permit_auth(:update) }
+    it { should_not permit_auth(:update_tech_eval) }
     it { should_not permit_auth(:destroy) }
 
     context "when procurement is expired" do
@@ -23,9 +24,10 @@ describe "Offer Policy" do
         allow(offer).to receive_messages(expired?: true)
       end
 
-      # it { should_not permit_auth(:destroy) }
+      it { should_not permit_auth(:destroy) }
       it { should permit_auth(:show) }
       it { should permit_auth(:update) }
+      it { should permit_auth(:update_tech_eval) }
     end
   end
 
@@ -35,6 +37,7 @@ describe "Offer Policy" do
     it { should permit_auth(:index) }
     it { should permit_auth(:new) }
     it { should permit_auth(:create) }
+    it { should_not permit_auth(:update_tech_eval) }
 
     context "when procurement is expired" do
       before :each do
@@ -44,6 +47,7 @@ describe "Offer Policy" do
       it { should_not permit_auth(:destroy) }
       it { should_not permit_auth(:edit) }
       it { should_not permit_auth(:update) }
+      it { should_not permit_auth(:update_tech_eval) }
     end
 
     context "when offer does not belong to user" do
@@ -55,6 +59,7 @@ describe "Offer Policy" do
       it { should_not permit_auth(:edit) }
       it { should_not permit_auth(:update) }
       it { should_not permit_auth(:destroy) }
+      it { should_not permit_auth(:update_tech_eval) }
     end
 
   end

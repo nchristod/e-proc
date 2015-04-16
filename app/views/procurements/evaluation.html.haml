@@ -50,7 +50,7 @@
                       %th.text-center{:style => "border-top: 1px solid #ffffff; |
                                             border-right: 1px solid #ffffff;"}  |
                 %tbody
-                  - prod.product.offers.each do |offer|
+                  - prod.offers.each do |offer|
                     %tr
                       %td
                         = link_to "#{offer.id}.", user_offer_path(offer.user,
@@ -61,17 +61,18 @@
                         = offer.offer_economical
                       - if procurement.advantageous?
                         = simple_form_for [offer.user, offer],
-                              url: user_offer_update_tech_eval_path(offer,
-                                                                    offer.user),
+                              url: user_offer_update_tech_eval_path(offer.user,
+                                                                    offer),
                               method: :put do |f|
-                          - unless offer.tech_eval
+                          - if offer.tech_eval
+                            %td
+                              = offer.tech_eval
+                          - else
                             %td
                               = f.input :tech_eval,
                                         label: false
                             %td
-                              = f.submit "Καταχώρηση Βαθμού",
-                                          class: "btn btn-default",
-                                          data: { :confirm => "Are you sure?" }
-                          - else
-                            %td
-                              = offer.tech_eval
+                              = f.submit "Καταχώρηση Βαθμού",                   |
+                                          class: "btn btn-default",             |
+                                          data: { :confirm => "Are you sure?" } |
+= paginate @procurements

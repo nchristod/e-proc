@@ -18,6 +18,7 @@ gem 'cocoon'
 gem 'paperclip'
 gem 'workflow'
 gem 'attr_encrypted'
+gem 'kaminari'
 
 group :development do
   gem 'byebug'
@@ -44,6 +45,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.4.1'
   gem 'rspec-rails'
   gem 'thin'
+  gem 'faker'
 end
 group :production do
   gem 'unicorn'
@@ -52,7 +54,6 @@ end
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'faker'
   gem 'launchy'
   gem 'selenium-webdriver', '>=2.45.0.dev3' #pined to workaround firefox 35 bug breaking tests
   gem 'shoulda-matchers', require: false

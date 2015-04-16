@@ -1,3 +1,8 @@
 TenderNotifications#tender_won
 
-<%= @greeting %>, find me in app/views/tender_notifications/tender_won.text.erb
+<%= @greeting + " " + @user.name %>,
+
+H προσφοράς σας No.<%= @offer.id %> για την Προκύρηξη <%= @procurement.name %> κέρδισε.
+Παρακαλούμε επικοινωνήστε μαζί μας, για να προχωρήσει η διαδικασία.
+
+The E-proc team

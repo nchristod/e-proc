@@ -40,6 +40,10 @@ class OfferPolicy < ApplicationPolicy
     (user.supplier? && belongs_to_user? && !record.expired?) || (user.admin? && record.expired?)
   end
 
+  def update_tech_eval?
+    user.admin? && record.expired?
+  end
+
   def new?
     create?
   end

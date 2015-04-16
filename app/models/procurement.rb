@@ -42,6 +42,7 @@ class Procurement < ActiveRecord::Base
     Procurement.from(table.create_table_alias(a_node, :procurements))
   end
 
+  # This is not used anymore.
   def find_best_offers
     self.procurement_products.each do |p_product|
       p_product.find_best_offer
@@ -54,17 +55,16 @@ class Procurement < ActiveRecord::Base
 
     def proc_end_date_valid
       return if self.proc_end_date.blank? || self.proc_start_date.blank?
-
       if self.proc_end_date <= self.proc_start_date
         errors.add(:proc_end_date,
-                  "can't be before or equal with the starting date")
+                  "Can't be before or equal with the starting date")
       end
     end
 
     def proc_delivery_date_valid
       return if self.proc_end_date.blank? || self.proc_delivery_date.blank?
       if self.proc_delivery_date < self.proc_end_date
-        errors.add(:proc_delivery_date, "can't be before end date")
+        errors.add(:proc_delivery_date, "Can't be before end date")
       end
     end
 

@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :offer do
-    offer_technical "MyText"
-    offer_economical "MyText"
-    delivery_date "2014-06-10 00:35:16"
+    offer_technical { Faker::Lorem.sentence }
+    offer_economical { Faker::Number.number(3) }
+    delivery_date { Faker::Date.forward(20) }
     user
     product
     procurement

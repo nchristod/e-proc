@@ -52,9 +52,10 @@ class Offer < ActiveRecord::Base
   end
 
   def econ_tech_eval
+    # do calcs with floats
     if self.tech_eval
-      self.tech_eval / (self.offer_economical.to_i *
-        ( 1 + ((self.delivery_date - self.procurement.proc_end_date).to_i/730)))
+      self.tech_eval / (self.offer_economical.to_f *
+        (1 + ((self.delivery_date - self.procurement.proc_end_date).to_f/730.0)))
     else
       "Den exoun ginei texnikes axiologiseis"
     end

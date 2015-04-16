@@ -59,6 +59,7 @@ class TenderNotifications < ActionMailer::Base
     @greeting = "Χαίρετε"
     @offer = offer
     @user = offer.user
+    @procurement = offer.procurement
 
     mail to: @user.email, subject: "[E-Proc] Your Offer Won."
   end

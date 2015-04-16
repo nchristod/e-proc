@@ -1,13 +1,13 @@
 class ProcurementsController < ApplicationController
   before_action :set_procurement, only: [:show, :edit, :update, :destroy]
-  after_action :verify_authorized
+  after_action :verify_authorized, except: [:evaluation]
 
   # GET /procurements
   # GET /procurements.json
   def index
     # @user = User.find(params[:user_id])
     @user = current_user
-    @procurements = Procurement.active
+    @procurements = Procurement.active.order(created_at: :desc).page(params[:page])
     authorize @procurements
     respond_to do |format|
       format.html
@@ -16,14 +16,13 @@ class ProcurementsController < ApplicationController
   end
 
   def archive
-    @procurements = Procurement.expired
+    @procurements = Procurement.expired.order(created_at: :desc).page(params[:page])
     authorize @procurements
     render 'procurements/index'
   end
 
   def evaluation
-    @procurements = Procurement.expired
-    # authorize @procurements
+    @procurements = Procurement.expired.order(created_at: :desc).page(params[:page])
     @procurements.each do |procurement|
       authorize procurement
       procurement.offers.each do |offer|
@@ -35,7 +34,7 @@ class ProcurementsController < ApplicationController
   end
 
   def best_offers
-    @procurements = Procurement.all.expired
+    @procurements = Procurement.all.expired.order(created_at: :desc).page(params[:page])
     authorize @procurements
     render 'procurements/best_offers'
   end
@@ -44,7 +43,6 @@ class ProcurementsController < ApplicationController
     procurement = Procurement.find(params[:procurement_id])
     authorize procurement
     p_prod = ProcurementProduct.find(params[:procurement_product_id])
-    offer_id = params[:offer_id]
     p_prod.update(best_offer_id: params[:offer_id])
 
     redirect_to best_offers_path
@@ -95,9 +93,9 @@ class ProcurementsController < ApplicationController
     respond_to do |format|
       if @procurement.save
         if params[:documents]
-          params[:documents].each { |document|
+          params[:documents].each do |document|
             @procurement.documents.create(document: document)
-          }
+          end
         end
         format.html { redirect_to @procurement,
                       notice: 'Procurement was successfully created.' }

@@ -58,7 +58,7 @@ RSpec.describe TenderNotifications, :type => :mailer do
     end
 
     it "renders the body" do
-      expect(mail.body.encoded).to match(offer.user.name)
+      expect(mail.text_part.body.decoded).to match(offer.user.name)
     end
   end
 

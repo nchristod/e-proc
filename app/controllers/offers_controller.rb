@@ -106,12 +106,12 @@ class OffersController < ApplicationController
   end
 
   def update_tech_eval
+    @offer = Offer.find(params[:offer_id])
     authorize @offer
-
     respond_to do |format|
-      if @offer.update(params[:tech_eval])
-        format.html { redirect_to expired_procurements_url,
-                      notice: 'Offer was successfully updated.' }
+      if @offer.update(offer_params)
+        format.html { redirect_to evaluation_url,
+                      notice: 'Technical evaluation was entered successfully.' }
         format.json { render :show,
                       status: :ok,
                       location: @offer }

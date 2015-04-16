@@ -9,14 +9,30 @@ class ProcurementProduct < ActiveRecord::Base
   def find_best_offer
     if self.best_offer_id.blank?
       if self.procurement.underbidding?
-        min_offers = self.offers.select do |offer|
-          offer.encrypted_offer_economical == self.offers.minimum(:encrypted_offer_economical)
+        # get unecrypted values
+        unecrypted = []
+        self.offers.each do |offer|
+          val = {offer_id: offer.id, offer_economical: offer.offer_economical}
+          unecrypted << val
         end
+        # puts unecrypted
+        # sort the array (first is lower economic offer)
+        sorted = unecrypted.sort do |a,b|
+          a[:offer_economical] <=> b[:offer_economical]
+        end
+        # puts sorted
+        # check if there's more than one minimum offer
+        min_offers = sorted.select do |o|
+          o[:offer_economical] == sorted[0][:offer_economical]
+        end
+        # puts min_offers
         if min_offers.count == 1
-          self.update(best_offer_id: min_offers[0].id)
-          # return min_offers[0]
+          self.update(best_offer_id: min_offers[0][:offer_id])
         else
-          return min_offers
+          # we need to return whole records
+          conflicts = []
+          min_offers.each {|entry| conflicts << Offer.find(entry[:offer_id])}
+          return conflicts
         end
       else
         if self.offers.where(tech_eval: nil).count == 0
@@ -26,6 +42,7 @@ class ProcurementProduct < ActiveRecord::Base
           best_offers = sorted.select do |offer|
             offer.econ_tech_eval == sorted.last.econ_tech_eval
           end
+          puts best_offers
           if best_offers.count == 1
             puts "One best offer"
             self.update(best_offer_id: best_offers[0].id)

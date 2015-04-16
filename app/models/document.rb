@@ -14,7 +14,7 @@ class Document < ActiveRecord::Base
 
   validates_attachment :document,
             :content_type => { :content_type => ["application/pdf"] },
-            :size => { :in => 0..10.megabytes },
+            :size => { :in => 0..5.megabytes },
             :file_name => { :matches => [/pdf\Z/] }
 
   # This must be declared after the has_attached_file declaration

@@ -16,7 +16,10 @@ feature 'Admin edits procurement', :devise do
     click_link "Add"
     find("input[id*=quantity]").set "1"
     find('textarea[id*=requirements]').set 'Lorem ipsum'
-    find('select[name*=product_id]').find('option', text: 'MyString').click
+    # find('select[name*=product_id]').find('option', text: 'MyString').click
+    within_table('table1') do
+      select 'MyString'
+    end
     click_button 'Update Procurement'
     expect(page).to have_content('MyString')
   end

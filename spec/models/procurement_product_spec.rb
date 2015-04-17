@@ -6,19 +6,48 @@ RSpec.describe ProcurementProduct, :type => :model do
 
   describe "#find_best_offer" do
     context "when procurement is underbidding" do
-      let(:procurement) { FactoryGirl.create(:procurement, :underbidding) }
+      before :each do
+        subject.procurement.update_attributes(category: 0)
+      end
 
-      xit "updates the best_offer_id" do
-        # Factories are fucked up. Needs fixing
-        allow(subject).to receive(:procurement).and_return(procurement)
-        5.times { FactoryGirl.create(:offer, offer_economical: 10, procurement: procurement) }
+      it "stores the min offer" do
+        expensive = FactoryGirl.create(:offer, procurement_id: 1, product_id: 1, offer_economical: 100)
+        cheap = FactoryGirl.create(:offer, procurement_id: 1, product_id: 1, offer_economical: 1)
         subject.find_best_offer
-        expect(subject.best_offer_id).not_to be_nil
+        expect(subject.best_offer_id).to eq(cheap.id)
+      end
+
+      it "returns all minimum offers when conflicts" do
+        5.times { FactoryGirl.create(:offer, offer_economical: 10, procurement_id: 1, product_id: 1) }
+        confl = subject.find_best_offer
+        expect(confl.count).to eq(5)
+      end
+
+      it "returns list of offers when conflicts" do
+        5.times { FactoryGirl.create(:offer, offer_economical: 10, procurement_id: 1, product_id: 1) }
+        confl = subject.find_best_offer
+        expect(confl[0]).to be_a(Offer)
       end
     end
 
     context "when procurement is advantageous" do
-      let(:procurement) { FactoryGirl.create(:procurement, :meat) }
+      before :each do
+        subject.procurement.update_attributes(category: 1)
+      end
+
+      it "stores the best offer" do
+        off1 = FactoryGirl.create(:offer, procurement_id: 1, product_id: 1, tech_eval: 120)
+        off2 = FactoryGirl.create(:offer, procurement_id: 1, product_id: 1, tech_eval: 1)
+        subject.find_best_offer
+        expect(subject.best_offer_id).to eq(off1.id)
+      end
+
+      it "returns all equal offers when conflicts" do
+        3.times { FactoryGirl.create(:offer, offer_economical: 10, procurement_id: 1, product_id: 1, tech_eval: 80, delivery_date: Date.today) }
+        conf = subject.find_best_offer
+        expect(conf.count).to be(3)
+      end
+
     end
   end
 end

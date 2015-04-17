@@ -53,9 +53,10 @@ group :production do
 end
 group :test do
   gem 'capybara'
+  # gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'selenium-webdriver', '>=2.45.0.dev3' #pined to workaround firefox 35 bug breaking tests
+  # gem 'selenium-webdriver', '>=2.45.0.dev3' #pined to workaround firefox 35 bug breaking tests
   gem 'shoulda-matchers', require: false
   gem 'poltergeist'
 end

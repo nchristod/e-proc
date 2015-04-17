@@ -21,7 +21,7 @@ feature 'User delete', :devise, :js do
     login_as(user, :scope => :user)
     visit edit_user_registration_path(user)
     click_button 'Cancel my account'
-    page.driver.browser.switch_to.alert.accept
+    # page.driver.browser.switch_to.alert.accept #poltergeist always clicks ok
     expect(page).to have_content 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
   end
 

@@ -7,7 +7,7 @@ require 'shoulda/matchers'
 require "pundit/rspec"
 require 'capybara/poltergeist'
 require "paperclip/matchers"
-require 'pry'
+# require 'pry'
 
 # require 'capybara/rails'
 # require 'capybara/rspec'

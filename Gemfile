@@ -39,6 +39,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv', '~> 2.0.2'
+  gem 'rails-erd'
 end
 group :development, :test do
   gem 'sqlite3'
@@ -46,6 +47,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'thin'
   gem 'faker'
+  gem 'railroady'
 end
 group :production do
   gem 'unicorn'
@@ -53,7 +55,7 @@ group :production do
 end
 group :test do
   gem 'capybara'
-  # gem 'capybara-webkit'
+  gem 'simplecov', :require => false
   gem 'database_cleaner'
   gem 'launchy'
   # gem 'selenium-webdriver', '>=2.45.0.dev3' #pined to workaround firefox 35 bug breaking tests

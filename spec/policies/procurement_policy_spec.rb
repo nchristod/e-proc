@@ -13,6 +13,7 @@ describe "Procurement Policy" do
     it { should permit_auth(:archive) }
     it { should permit_auth(:create)  }
     it { should permit_auth(:new)     }
+    it { should permit_auth(:best_offers) }
 
     context "procurement expired" do
       let(:procurement) { FactoryGirl.create(:expired_procurement) }
@@ -30,7 +31,7 @@ describe "Procurement Policy" do
       it { should permit_auth(:edit) }
       it { should permit_auth(:destroy) }
       it { should_not permit_auth(:evaluation) }
-    end    
+    end
   end
 
   context "for a Supplier" do
@@ -45,6 +46,7 @@ describe "Procurement Policy" do
     it { should_not permit_auth(:update) }
     it { should_not permit_auth(:edit) }
     it { should_not permit_auth(:destroy) }
+    it { should_not permit_auth(:best_offers) }
   end
 
   context "for a Visitor" do
@@ -59,8 +61,7 @@ describe "Procurement Policy" do
     it { should_not permit_auth(:update) }
     it { should_not permit_auth(:edit) }
     it { should_not permit_auth(:destroy) }
+    it { should_not permit_auth(:best_offers) }
   end
-
-
 
 end

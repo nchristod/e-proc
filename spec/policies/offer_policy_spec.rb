@@ -28,6 +28,8 @@ describe "Offer Policy" do
       it { should permit_auth(:show) }
       it { should permit_auth(:update) }
       it { should permit_auth(:update_tech_eval) }
+      it { should permit_auth(:send_winner_email) }
+
     end
   end
 
@@ -38,6 +40,7 @@ describe "Offer Policy" do
     it { should permit_auth(:new) }
     it { should permit_auth(:create) }
     it { should_not permit_auth(:update_tech_eval) }
+    it { should_not permit_auth(:send_winner_email) }
 
     context "when procurement is expired" do
       before :each do
@@ -48,6 +51,8 @@ describe "Offer Policy" do
       it { should_not permit_auth(:edit) }
       it { should_not permit_auth(:update) }
       it { should_not permit_auth(:update_tech_eval) }
+      it { should_not permit_auth(:send_winner_email) }
+
     end
 
     context "when offer does not belong to user" do
@@ -60,6 +65,8 @@ describe "Offer Policy" do
       it { should_not permit_auth(:update) }
       it { should_not permit_auth(:destroy) }
       it { should_not permit_auth(:update_tech_eval) }
+      it { should_not permit_auth(:send_winner_email) }
+
     end
 
   end

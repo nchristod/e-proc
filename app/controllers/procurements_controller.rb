@@ -5,7 +5,6 @@ class ProcurementsController < ApplicationController
   # GET /procurements
   # GET /procurements.json
   def index
-    # @user = User.find(params[:user_id])
     @user = current_user
     @procurements = Procurement.active.order(created_at: :desc).page(params[:page])
     authorize @procurements
@@ -22,7 +21,8 @@ class ProcurementsController < ApplicationController
   end
 
   def evaluation
-    @procurements = Procurement.expired.order(created_at: :desc).page(params[:page])
+    # Eager loading associations to avoid N+1 queries
+    @procurements = Procurement.expired.includes(:offers).includes(procurement_products: [{offers: :user}]).order(created_at: :desc).page(params[:page])
     @procurements.each do |procurement|
       authorize procurement
       procurement.offers.each do |offer|
@@ -34,7 +34,8 @@ class ProcurementsController < ApplicationController
   end
 
   def best_offers
-    @procurements = Procurement.all.expired.order(created_at: :desc).page(params[:page])
+    # Eager loading associations to avoid N+1 queries
+    @procurements = Procurement.all.expired.includes(procurement_products: [{offers: :user}]).order(created_at: :desc).page(params[:page])
     authorize @procurements
     render 'procurements/best_offers'
   end
@@ -64,10 +65,6 @@ class ProcurementsController < ApplicationController
     @procurement = Procurement.new
     @procurement.procurement_products.build
     authorize @procurement
-    # else
-    #   redirect_to root_path
-    #   flash[:alert] = "You must be an admin to do that."
-    # end
   end
 
   # GET /procurements/1/edit
@@ -144,7 +141,6 @@ class ProcurementsController < ApplicationController
   # DELETE /procurements/1
   # DELETE /procurements/1.json
   def destroy
-    # @user = User.find(params[:user_id])
     @user = current_user
 
     if @user.admin?
